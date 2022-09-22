@@ -5,24 +5,19 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Home, Profile } from "./src/screens";
 import { mainTheme } from "./src/theme";
 
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+const Tab = createBottomTabNavigator();
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: "Pizza",
-            headerStyle: {
-              backgroundColor: mainTheme.COLOR_PRIMARY,
-            },
-          }}
-        />
-        <Stack.Screen name="Profile" component={Profile} />
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Profile" component={Profile} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
