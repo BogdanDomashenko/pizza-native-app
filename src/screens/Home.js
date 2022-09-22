@@ -1,9 +1,11 @@
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+import { Products } from "../components";
 
 export const Home = () => {
   return (
-    <View>
+    <ScrollView>
       <Text>Home</Text>
-    </View>
+      <Products />
+    </ScrollView>
   );
 };
