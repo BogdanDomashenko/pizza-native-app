@@ -1,5 +1,5 @@
-import { Text, View } from "react-native";
-import { ScrollView } from "react-native-web";
+import { Text, View, ScrollView, SafeAreaView, StyleSheet } from "react-native";
+import styled from "styled-components/native";
 import { Product } from "./Product.js";
 
 const items = [
@@ -49,10 +49,10 @@ const items = [
 
 export const Products = () => {
   return (
-    <View>
+    <ScrollView>
       {items.map((item) => (
         <Product key={item.id} name={item.name} imageUrl={item.imageUrl} />
       ))}
-    </View>
+    </ScrollView>
   );
 };

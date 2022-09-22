@@ -7,6 +7,7 @@ import { Home, Profile } from "./src/screens";
 import { mainTheme } from "./src/theme";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Products } from "./src/components";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +33,7 @@ export default function App() {
           tabBarInactiveTintColor: mainTheme.COLOR_MUTED,
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Home" component={Products} />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>

@@ -3,9 +3,9 @@ import { Products } from "../components";
 
 export const Home = () => {
   return (
-    <ScrollView>
+    <View>
       <Text>Home</Text>
       <Products />
-    </ScrollView>
+    </View>
   );
 };
