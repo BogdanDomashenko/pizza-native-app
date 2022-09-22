@@ -1,6 +1,12 @@
-import { Button, SafeAreaView, TextInput } from "react-native";
+import { Button, SafeAreaView, TextInput, View } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Input } from "../../../ui";
+import styled from "styled-components/native";
+
+const FormItem = styled(View)`
+  margin-top: 5px;
+  margin-bottom: 5px;
+`;
 
 export const Signin = () => {
   const {
@@ -13,32 +19,36 @@ export const Signin = () => {
 
   return (
     <SafeAreaView>
-      <Controller
-        control={control}
-        render={({ onChange, onBlur, value }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Phone number"
-          />
-        )}
-        name="PhoneNumber"
-      />
-      <Controller
-        control={control}
-        render={({ onChange, onBlur, value }) => (
-          <Input
-            type="password"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Password"
-          />
-        )}
-        name="Password"
-      />
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <FormItem>
+        <Controller
+          control={control}
+          render={({ onChange, onBlur, value }) => (
+            <Input
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              placeholder="Phone number"
+            />
+          )}
+          name="PhoneNumber"
+        />
+      </FormItem>
+      <FormItem>
+        <Controller
+          control={control}
+          render={({ onChange, onBlur, value }) => (
+            <Input
+              secureTextEntry={true}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              placeholder="Password"
+            />
+          )}
+          name="Password"
+        />
+      </FormItem>
+      <Button title="Sign in" onPress={handleSubmit(onSubmit)} />
     </SafeAreaView>
   );
 };
