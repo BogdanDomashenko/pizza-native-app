@@ -20,10 +20,23 @@ export const Signin = () => {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
-            placeholder="Title"
+            placeholder="Phone number"
           />
         )}
-        name="title"
+        name="PhoneNumber"
+      />
+      <Controller
+        control={control}
+        render={({ onChange, onBlur, value }) => (
+          <Input
+            type="password"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder="Password"
+          />
+        )}
+        name="Password"
       />
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </SafeAreaView>
