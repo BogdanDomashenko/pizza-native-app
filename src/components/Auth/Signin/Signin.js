@@ -2,6 +2,7 @@ import { SafeAreaView, TextInput, View } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Button, Input } from "../../../ui";
 import styled from "styled-components/native";
+import { useSigninMutation } from "../../../services/Auth.service.js";
 import { mainTheme } from "../../../theme";
 
 const FormItem = styled(View)`
@@ -26,14 +27,19 @@ export const Signin = () => {
     formState: { errors, isValid },
   } = useForm({ mode: "onBlur" });
 
-  const onSubmit = (data) => console.log(data);
+  const [signin, { isLoading: isUpdating }] = useSigninMutation();
+
+  const onSubmit = async (data) => {
+    const user = await signin(data);
+    console.log(user);
+  };
 
   return (
     <Form>
       <FormItem>
         <Controller
           control={control}
-          render={({ onChange, onBlur, value }) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <Input
               onBlur={onBlur}
               onChangeText={onChange}
@@ -41,22 +47,22 @@ export const Signin = () => {
               placeholder="Phone number"
             />
           )}
-          name="PhoneNumber"
+          name="phoneNumber"
         />
       </FormItem>
       <FormItem>
         <Controller
           control={control}
-          render={({ onChange, onBlur, value }) => (
+          render={({ field: { onChange, onBlur, value } }) => (
             <Input
               secureTextEntry={true}
               onBlur={onBlur}
-              onChangeText={onChange}
+              onChangeText={(text) => onChange(text)}
               value={value}
               placeholder="Password"
             />
           )}
-          name="Password"
+          name="password"
         />
       </FormItem>
       <ButtonStyled variant="primary" onPress={handleSubmit(onSubmit)}>

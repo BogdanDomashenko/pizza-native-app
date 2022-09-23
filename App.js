@@ -13,8 +13,6 @@ import store from "./src/store/store";
 
 const Tab = createBottomTabNavigator();
 
-const Stack = createNativeStackNavigator();
-
 export default function App() {
   return (
     <Provider store={store}>
