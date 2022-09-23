@@ -1,5 +1,6 @@
 import { Image, Text, View } from "react-native";
 import styled from "styled-components/native";
+import { SelectBar } from "../../ui";
 
 const ProductView = styled.View`
   margin: 10px auto;
@@ -8,6 +9,7 @@ const ProductView = styled.View`
 const ProductImage = styled.Image`
   width: 300px;
   height: 300px;
+  mix-blend-mode: multiply;
 `;
 
 const Title = styled.Text`
@@ -15,7 +17,7 @@ const Title = styled.Text`
   margin-top: 10px;
 `;
 
-export const Product = ({ imageUrl, name }) => {
+export const Product = ({ imageUrl, name, types, sizes }) => {
   return (
     <ProductView>
       <ProductImage
@@ -25,6 +27,7 @@ export const Product = ({ imageUrl, name }) => {
         resizeMode="contain"
       />
       <Title>{name}</Title>
+      <SelectBar itemsRow1={types} itemsRow2={sizes} />
     </ProductView>
   );
 };

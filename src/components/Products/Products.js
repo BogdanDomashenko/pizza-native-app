@@ -1,5 +1,6 @@
 import { Text, View, ScrollView, SafeAreaView, StyleSheet } from "react-native";
 import styled from "styled-components/native";
+import { ScrollContainer } from "../../ui";
 import { Product } from "./Product.js";
 
 const items = [
@@ -49,10 +50,16 @@ const items = [
 
 export const Products = () => {
   return (
-    <ScrollView>
+    <ScrollContainer>
       {items.map((item) => (
-        <Product key={item.id} name={item.name} imageUrl={item.imageUrl} />
+        <Product
+          key={item.id}
+          name={item.name}
+          imageUrl={item.imageUrl}
+          sizes={item.sizes}
+          types={item.types}
+        />
       ))}
-    </ScrollView>
+    </ScrollContainer>
   );
 };
