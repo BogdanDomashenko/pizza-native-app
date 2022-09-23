@@ -9,7 +9,7 @@ const Select = styled.View`
 `;
 
 const Option = styled.Pressable`
-  background-color: ${(props) => (props.active ? "#ffffff" : "transparent")};
+  background-color: ${(props) => (props.seleced ? "#ffffff" : "transparent")};
   padding: 8px;
   flex: 1 1;
   margin: 0 6px;
@@ -35,7 +35,8 @@ export const SelectBar = ({
       <Row>
         {itemsRow1?.map((item) => (
           <Option
-            active={item === activeItemRow1}
+            key={item}
+            seleced={item === activeItemRow1}
             onPress={() => onSelectRow1 && onSelectRow1(item)}
           >
             <Text>{item}</Text>
@@ -45,7 +46,8 @@ export const SelectBar = ({
       <Row>
         {itemsRow2?.map((item) => (
           <Option
-            active={item === activeItemRow2}
+            key={item}
+            seleced={item === activeItemRow2}
             onPress={() => onSelectRow2 && onSelectRow2(item)}
           >
             <Text>{item}</Text>
