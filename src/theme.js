@@ -12,4 +12,7 @@ export const mainTheme = {
   COLOR_DANGER_DARK: "#e03636",
   COLOR_WARNING: "#FFCB44",
   COLOR_WARNING_LIGHT: "#ffdf8c",
+  FONT_SIZE_MAIN: "16px",
+  FONT_SIZE_MIDDLE: "20px",
+  FONT_SIZE_LARGE: "24px",
 };
