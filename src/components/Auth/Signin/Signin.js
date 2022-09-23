@@ -59,7 +59,9 @@ export const Signin = () => {
           name="Password"
         />
       </FormItem>
-      <ButtonStyled variant="primary">Sign in</ButtonStyled>
+      <ButtonStyled variant="primary" onPress={handleSubmit(onSubmit)}>
+        Sign in
+      </ButtonStyled>
     </Form>
   );
 };
