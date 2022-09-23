@@ -25,6 +25,11 @@ const Bottom = styled.View`
   align-items: center;
 `;
 
+const CountContainer = styled.Text`
+  background-color: ${mainTheme.COLOR_PRIMARY};
+  color: ${mainTheme.COLOR_LIGHT};
+`;
+
 export const Product = ({ name, price, imageUrl, types, sizes }) => {
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(sizes[0]);
@@ -50,7 +55,11 @@ export const Product = ({ name, price, imageUrl, types, sizes }) => {
       />
       <Bottom>
         <Title>{price}$</Title>
-        <Button background={mainTheme.COLOR_PRIMARY} variant="primary">
+        <Button
+          background={mainTheme.COLOR_PRIMARY}
+          icon="add"
+          variant="primary-outlined"
+        >
           Add
         </Button>
       </Bottom>
