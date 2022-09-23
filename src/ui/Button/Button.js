@@ -8,7 +8,9 @@ const handleVariant = (variant, isPressed) => {
   switch (variant) {
     case "primary":
       return {
-        backgroundColor: mainTheme.COLOR_PRIMARY,
+        backgroundColor: isPressed
+          ? mainTheme.COLOR_PRIMARY_DARK
+          : mainTheme.COLOR_PRIMARY,
       };
     case "primary-outlined":
       return {

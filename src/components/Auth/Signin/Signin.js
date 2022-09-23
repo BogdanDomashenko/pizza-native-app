@@ -1,6 +1,6 @@
-import { Button, SafeAreaView, TextInput, View } from "react-native";
+import { SafeAreaView, TextInput, View } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { ButtondStyled, Input } from "../../../ui";
+import { Button, Input } from "../../../ui";
 import styled from "styled-components/native";
 import { mainTheme } from "../../../theme";
 
@@ -12,6 +12,11 @@ const FormItem = styled(View)`
 const Form = styled.SafeAreaView`
   height: 100%;
   justify-content: center;
+`;
+
+const ButtonStyled = styled(Button)`
+  margin-top: 10px;
+  width: 100%;
 `;
 
 export const Signin = () => {
@@ -54,11 +59,7 @@ export const Signin = () => {
           name="Password"
         />
       </FormItem>
-      <Button
-        title="Sign in"
-        onPress={handleSubmit(onSubmit)}
-        color={mainTheme.COLOR_PRIMARY}
-      />
+      <ButtonStyled variant="primary">Sign in</ButtonStyled>
     </Form>
   );
 };
