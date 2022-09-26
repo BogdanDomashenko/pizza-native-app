@@ -1,11 +1,9 @@
-import { SafeAreaView, TextInput, View } from "react-native";
+import { SafeAreaView, TextInput, View, Text } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Button, Input } from "../../../ui";
 import styled from "styled-components/native";
-import {
-  useSigninMutation,
-  useTestQuery,
-} from "../../../services/Auth.service.js";
+import { useSigninMutation } from "../../../services/Auth.service.js";
+import PhoneInput from "react-native-phone-input";
 import { mainTheme } from "../../../theme";
 
 const FormItem = styled(View)`
@@ -30,10 +28,13 @@ export const Signin = () => {
     formState: { errors, isValid },
   } = useForm({ mode: "onBlur" });
 
-  const [signin, { isLoading: isUpdating }] = useSigninMutation();
+  const [signin, { isLoading: isUpdating, error }] = useSigninMutation();
 
   const onSubmit = async (data) => {
-    const user = await signin(data);
+    const user = await signin({
+      ...data,
+      phoneNumber: data.phoneNumber.split("+")[1],
+    });
     console.log(user);
   };
 
@@ -43,11 +44,10 @@ export const Signin = () => {
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <Input
+            <PhoneInput
               onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholder="Phone number"
+              onChangePhoneNumber={(text) => onChange(text)}
+              initialValue={value}
             />
           )}
           name="phoneNumber"
@@ -71,6 +71,7 @@ export const Signin = () => {
       <ButtonStyled variant="primary" onPress={handleSubmit(onSubmit)}>
         Sign in
       </ButtonStyled>
+      <FormItem>{error && <Text>{error.data?.message}</Text>}</FormItem>
     </Form>
   );
 };
