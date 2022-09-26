@@ -8,7 +8,8 @@ const reducer = {
 
 const store = configureStore({
   reducer,
-  middleware: getDefaultMiddleware(),
+  middleware: (getDefaultMiddlware) =>
+    getDefaultMiddlware().concat(authApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
 
