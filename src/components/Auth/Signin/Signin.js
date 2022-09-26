@@ -1,8 +1,9 @@
-import { SafeAreaView, TextInput, View, Text } from "react-native";
+import { SafeAreaView, TextInput, View, Text, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Button, Input, PhoneTextField } from "../../../ui";
 import styled from "styled-components/native";
 import { useSigninMutation } from "../../../services/Auth.service.js";
+import AnimatedLoader from "react-native-animated-loader";
 import { mainTheme } from "../../../theme";
 
 const FormItem = styled(View)`
@@ -27,7 +28,7 @@ export const Signin = () => {
     formState: { errors, isValid },
   } = useForm({ mode: "onBlur" });
 
-  const [signin, { isLoading: isUpdating, error }] = useSigninMutation();
+  const [signin, { isLoading, error }] = useSigninMutation();
 
   const onSubmit = async (data) => {
     const user = await signin({
@@ -72,6 +73,21 @@ export const Signin = () => {
         Sign in
       </ButtonStyled>
       <FormItem>{error && <Text>{error.data?.message}</Text>}</FormItem>
+      <AnimatedLoader
+        visible={isLoading}
+        overlayColor="rgba(255,255,255,0.75)"
+        animationStyle={styles.lottie}
+        speed={1}
+      >
+        <Text>Loading...</Text>
+      </AnimatedLoader>
     </Form>
   );
 };
+
+const styles = StyleSheet.create({
+  lottie: {
+    width: 100,
+    height: 100,
+  },
+});
