@@ -1,9 +1,8 @@
 import { SafeAreaView, TextInput, View, Text } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { Button, Input } from "../../../ui";
+import { Button, Input, PhoneTextField } from "../../../ui";
 import styled from "styled-components/native";
 import { useSigninMutation } from "../../../services/Auth.service.js";
-import PhoneInput from "react-native-phone-input";
 import { mainTheme } from "../../../theme";
 
 const FormItem = styled(View)`
@@ -44,7 +43,8 @@ export const Signin = () => {
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <PhoneInput
+            <PhoneTextField
+              initialCountry={"us"}
               onBlur={onBlur}
               onChangePhoneNumber={(text) => onChange(text)}
               initialValue={value}
