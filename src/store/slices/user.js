@@ -22,7 +22,10 @@ const userSlice = createSlice({
       }
     );
   },
+  reducers: {
+    resetUser: (state, action) => initialState,
+  },
 });
 
-export const userActions = userSlice.actions;
+export const { resetUser } = userSlice.actions;
 export const userReducer = userSlice.reducer;
