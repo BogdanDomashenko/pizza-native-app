@@ -11,8 +11,9 @@ const stylesSlice = createSlice({
     setProducts(state, action) {
       state.products = action.payload.products;
     },
+    resetProducts: (state, action) => initialState,
   },
 });
 
-export const { setProducts } = stylesSlice.actions;
+export const { setProducts, resetProducts } = stylesSlice.actions;
 export const productsReducer = stylesSlice.reducer;

@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   StyleSheet,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import styled from "styled-components/native";
 import { useFlatProudcts } from "../../hooks";
@@ -61,11 +62,10 @@ const items = [
 export const Products = () => {
   const [page, setPage] = useState(0);
 
-  const { products, isLoading } = useFlatProudcts(page);
+  const { products, isLoading, refetch } = useFlatProudcts(page);
 
   const handleEndReached = () => {
     setPage(page + 1);
-    console.log({ page });
   };
 
   return (
@@ -84,6 +84,8 @@ export const Products = () => {
           />
         )}
         onEndReached={handleEndReached}
+        refreshing={isLoading}
+        onRefresh={refetch}
       />
     </Container>
   );

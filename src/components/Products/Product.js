@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Image, Text, View } from "react-native";
 import styled from "styled-components/native";
 import { mainTheme } from "../../theme";
@@ -30,7 +30,7 @@ const CountContainer = styled.Text`
   color: ${mainTheme.COLOR_LIGHT};
 `;
 
-export const Product = ({ name, price, imageUrl, types, sizes }) => {
+export const Product = memo(({ name, price, imageUrl, types, sizes }) => {
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(sizes[0]);
 
@@ -65,4 +65,4 @@ export const Product = ({ name, price, imageUrl, types, sizes }) => {
       </Bottom>
     </ProductView>
   );
-};
+});
