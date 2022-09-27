@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Signin } from "../../components";
+import { Order, Signin } from "../../components";
 import { useUser } from "../../hooks/useUser";
 import {
   getAccessToken,
@@ -30,6 +30,7 @@ export const Profile = () => {
       {user.data?.id ? (
         <View>
           <Text>Phone: +{user.data.phoneNumber}</Text>
+          <Order id="1" price="40" />
           <ButtonStyled variant="primary" onPress={handleLogoutPress}>
             Logout
           </ButtonStyled>

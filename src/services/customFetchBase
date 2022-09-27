@@ -19,7 +19,8 @@ const baseQuery = fetchBaseQuery({
     return headers;
   },
 });
-export const baseQueryWithToken = async (args, api, extraOptions) => {
+
+export const customFetchBase = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error) {
     if (
