@@ -11,6 +11,7 @@ import { mainTheme } from "./src/theme";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Products } from "./src/components";
+import { CartButton } from "./src/components/Cart/CartButton";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +40,7 @@ export default function App() {
             <Tab.Screen name="Home" component={Products} />
             <Tab.Screen name="Profile" component={Profile} />
           </Tab.Navigator>
+          <CartButton />
         </NavigationContainer>
       </PersistGate>
     </Provider>

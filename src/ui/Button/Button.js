@@ -46,7 +46,7 @@ const ButtonStyled = styled.Pressable`
   justify-content: space-around;
   align-items: center;
   width: 100px;
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 30px;
   ${(props) => handleVariant(props.variant, props.isPressed)};
 `;
@@ -59,7 +59,13 @@ const TextStyled = styled.Text`
   font-size: ${mainTheme.FONT_SIZE_MAIN};
 `;
 
-export const Button = ({ variant, children, icon, ...rest }) => {
+export const Button = ({
+  variant,
+  children,
+  icon,
+  containerButton,
+  ...rest
+}) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePressIn = () => {

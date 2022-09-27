@@ -1,7 +1,8 @@
 import { ScrollView, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
+import styled from "styled-components/native";
 import { Products } from "../components";
-import { Container } from "../ui";
+import { Button, Container } from "../ui";
 
 export const Home = () => {
   const dispatch = useDispatch();
