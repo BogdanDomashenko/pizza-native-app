@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import styled from "styled-components/native";
+import { useCart } from "../../hooks";
 import { Button } from "../../ui";
 
 const ButtonStyled = styled(Button)`
@@ -17,5 +18,9 @@ const Separator = styled.View`
 `;
 
 export const CartButton = () => {
-  return <ButtonStyled variant="primary">Checkout</ButtonStyled>;
+  const cart = useCart();
+
+  return cart.items.length ? (
+    <ButtonStyled variant="primary">Checkout</ButtonStyled>
+  ) : null;
 };

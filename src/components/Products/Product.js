@@ -38,18 +38,17 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
   const [activeType, setActiveType] = useState(types ? types[0] : "none");
   const [activeSize, setActiveSize] = useState(sizes ? sizes[0] : "none");
 
-  const handleAddPress = () =>
-    useCallback(() => {
-      dispatch(
-        addCartItem({
-          id,
-          name,
-          price,
-          imageUrl,
-          selectedProps: { type: activeType, size: activeSize },
-        })
-      );
-    }, []);
+  const handleAddPress = useCallback(() => {
+    dispatch(
+      addCartItem({
+        id,
+        name,
+        price,
+        imageUrl,
+        selectedProps: { type: activeType, size: activeSize },
+      })
+    );
+  }, []);
 
   return (
     <ProductView>
