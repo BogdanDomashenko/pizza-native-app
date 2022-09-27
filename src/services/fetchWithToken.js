@@ -1,4 +1,4 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../config";
 import { resetUser } from "../store/slices/user";
 import {
@@ -20,7 +20,7 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-export const customFetchBase = async (args, api, extraOptions) => {
+export const fetchWithToken = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error) {
     if (

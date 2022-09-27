@@ -6,10 +6,6 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({ baseUrl: `${baseUrl}/auth` }),
   endpoints: (build) => ({
-    test: build.query({
-      mathod: "GET",
-      url: "/test",
-    }),
     signin: build.mutation({
       query: (body) => ({
         method: "POST",

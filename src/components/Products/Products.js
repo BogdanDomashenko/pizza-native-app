@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { Text, View, ScrollView, SafeAreaView, StyleSheet } from "react-native";
 import styled from "styled-components/native";
+import { useAvailableProductsQuery } from "../../services/Product.service";
 import { ScrollContainer } from "../../ui";
 import { Product } from "./Product.js";
 
@@ -49,6 +51,12 @@ const items = [
 ];
 
 export const Products = () => {
+  const { data: products, isLoading } = useAvailableProductsQuery();
+
+  useEffect(() => {
+    console.log(products);
+  }, [products]);
+
   return (
     <ScrollContainer>
       {items.map((item) => (

@@ -17,6 +17,7 @@ import {
 import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "../services/Auth.service";
 import { userReducer } from "./slices/user";
+import { productApi } from "../services/Product.service";
 
 const persistConfig = {
   key: "root",
@@ -27,6 +28,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
+  [productApi.reducerPath]: productApi.reducer,
   user: userReducer,
 });
 
@@ -39,7 +41,9 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware),
+    })
+      .concat(authApi.middleware)
+      .concat(productApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
 
