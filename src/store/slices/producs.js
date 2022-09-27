@@ -4,7 +4,7 @@ const initialState = {
   products: [],
 };
 
-const stylesSlice = createSlice({
+const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
@@ -15,5 +15,5 @@ const stylesSlice = createSlice({
   },
 });
 
-export const { setProducts, resetProducts } = stylesSlice.actions;
-export const productsReducer = stylesSlice.reducer;
+export const { setProducts, resetProducts } = productSlice.actions;
+export const productsReducer = productSlice.reducer;

@@ -1,6 +1,8 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Image, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
+import { addCartItem } from "../../store/slices/cart";
 import { mainTheme } from "../../theme";
 import { Button, SelectBar, Title } from "../../ui";
 
@@ -30,9 +32,24 @@ const CountContainer = styled.Text`
   color: ${mainTheme.COLOR_LIGHT};
 `;
 
-export const Product = memo(({ name, price, imageUrl, types, sizes }) => {
-  const [activeType, setActiveType] = useState(types[0]);
-  const [activeSize, setActiveSize] = useState(sizes[0]);
+export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
+  const dispatch = useDispatch();
+
+  const [activeType, setActiveType] = useState(types ? types[0] : "none");
+  const [activeSize, setActiveSize] = useState(sizes ? sizes[0] : "none");
+
+  const handleAddPress = () =>
+    useCallback(() => {
+      dispatch(
+        addCartItem({
+          id,
+          name,
+          price,
+          imageUrl,
+          selectedProps: { type: activeType, size: activeSize },
+        })
+      );
+    }, []);
 
   return (
     <ProductView>
@@ -59,6 +76,7 @@ export const Product = memo(({ name, price, imageUrl, types, sizes }) => {
           background={mainTheme.COLOR_PRIMARY}
           icon="add"
           variant="primary-outlined"
+          onPress={handleAddPress}
         >
           Add
         </Button>

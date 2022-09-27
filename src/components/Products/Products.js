@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import styled from "styled-components/native";
-import { useFlatProudcts } from "../../hooks";
+import { useCart, useFlatProudcts } from "../../hooks";
 import { useAvailableProductsQuery } from "../../services/Product.service";
 import { Container, ScrollContainer } from "../../ui";
 import { Product } from "./Product.js";
@@ -60,6 +60,12 @@ const items = [
 ];
 
 export const Products = () => {
+  const cart = useCart();
+
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
+
   const [page, setPage] = useState(0);
 
   const { products, isLoading, refetch } = useFlatProudcts(page);
@@ -75,6 +81,7 @@ export const Products = () => {
         key={(item) => item.id}
         renderItem={({ item }) => (
           <Product
+            id={item.id}
             name={item.name}
             imageUrl={item.imageUrl}
             price={item.price}

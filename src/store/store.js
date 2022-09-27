@@ -18,18 +18,20 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "../services/Auth.service";
 import { userReducer } from "./slices/user";
 import { productApi } from "../services/Product.service";
+import { cartReducer } from "./slices/cart";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage: AsyncStorage,
-  whitelist: ["user"],
+  whitelist: ["user, cart"],
 };
 
 const reducers = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
   user: userReducer,
+  cart: cartReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
