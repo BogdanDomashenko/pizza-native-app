@@ -6,8 +6,8 @@ export const productApi = createApi({
   baseQuery: fetchWithToken,
   endpoints: (build) => ({
     availableProducts: build.query({
-      query: () => ({
-        url: "/stock/aviablePizzas?page=0&&size=8&&category=0",
+      query: (page) => ({
+        url: `/stock/aviablePizzas?page=${page}&&size=8&&category=0`,
       }),
     }),
   }),

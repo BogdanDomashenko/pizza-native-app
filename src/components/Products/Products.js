@@ -1,8 +1,16 @@
-import { useEffect } from "react";
-import { Text, View, ScrollView, SafeAreaView, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  Text,
+  View,
+  ScrollView,
+  SafeAreaView,
+  StyleSheet,
+  FlatList,
+} from "react-native";
 import styled from "styled-components/native";
+import { useFlatProudcts } from "../../hooks";
 import { useAvailableProductsQuery } from "../../services/Product.service";
-import { ScrollContainer } from "../../ui";
+import { Container, ScrollContainer } from "../../ui";
 import { Product } from "./Product.js";
 
 const items = [
@@ -51,25 +59,32 @@ const items = [
 ];
 
 export const Products = () => {
-  const { data: products, isLoading } = useAvailableProductsQuery();
+  const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
+  const { products, isLoading } = useFlatProudcts(page);
+
+  const handleEndReached = () => {
+    setPage(page + 1);
+    console.log({ page });
+  };
 
   return (
-    <ScrollContainer>
-      {items.map((item) => (
-        <Product
-          key={item.id}
-          name={item.name}
-          imageUrl={item.imageUrl}
-          price={item.price}
-          rating={item.rating}
-          sizes={item.sizes}
-          types={item.types}
-        />
-      ))}
-    </ScrollContainer>
+    <Container>
+      <FlatList
+        data={products}
+        key={(item) => item.id}
+        renderItem={({ item }) => (
+          <Product
+            name={item.name}
+            imageUrl={item.imageUrl}
+            price={item.price}
+            rating={item.rating}
+            sizes={item.sizes}
+            types={item.types}
+          />
+        )}
+        onEndReached={handleEndReached}
+      />
+    </Container>
   );
 };
