@@ -1,10 +1,25 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { baseUrl } from "../config";
 import { resetUser } from "../store/slices/user";
-import { removeAccessToken, setAccessToken } from "./AsyncStorage.service";
+import {
+  removeAccessToken,
+  setAccessToken,
+  getAccessToken,
+} from "./AsyncStorage.service";
 
-const baseQuery = fetchBaseQuery({ baseUrl });
-const baseQueryWithReauth = async (args, api, extraOptions) => {
+const baseQuery = fetchBaseQuery({
+  baseUrl,
+  prepareHeaders: async (headers) => {
+    const accessToken = await getAccessToken();
+
+    if (accessToken) {
+      headers.set("authorization", accessToken);
+    }
+
+    return headers;
+  },
+});
+export const baseQueryWithToken = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error) {
     if (
