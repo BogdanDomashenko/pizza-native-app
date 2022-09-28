@@ -41,8 +41,6 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
 
   const addationalPrice = useAdditionalPrice(activeSize, activeType);
 
-  console.log(addationalPrice);
-
   const handleAddPress = useCallback(() => {
     dispatch(
       addCartItem({
@@ -51,6 +49,7 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
         price,
         imageUrl,
         selectedProps: { type: activeType, size: activeSize },
+        addationalPrice,
       })
     );
   }, [activeSize, activeType]);
@@ -75,7 +74,7 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
         onSelectRow2={setActiveSize}
       />
       <Bottom>
-        <Title>{price}$</Title>
+        <Title>{price + addationalPrice}$</Title>
         <Button
           background={mainTheme.COLOR_PRIMARY}
           icon="add"

@@ -27,6 +27,7 @@ export const CartItems = () => {
               product={item.product}
               selectedProps={item.selectedProps}
               count={item.count}
+              price={item.price}
             />
           ))
         : ""}

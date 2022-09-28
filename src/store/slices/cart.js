@@ -11,22 +11,23 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addCartItem(state, action) {
-      const { id, name, imageUrl, price, selectedProps } = action.payload;
+      const { id, name, imageUrl, price, selectedProps, addationalPrice } =
+        action.payload;
 
       const itemId = generateCartId(id, selectedProps.type, selectedProps.size);
 
       const item = state.items.find((item) => item.id === itemId);
 
-      console.log({ item });
-
       if (item) {
         item.count += 1;
+        item.price = item.price + (price + addationalPrice);
       } else {
         state.items.push({
           id: itemId,
           product: { id, name, imageUrl, price },
           selectedProps,
           count: 1,
+          price: price + addationalPrice,
         });
       }
     },
@@ -35,6 +36,7 @@ const cartSlice = createSlice({
     }),
     incCartItem(state, action) {
       const item = state.items.find((item) => item.id === action.payload.id);
+      item.price = item.price + (price + addationalPrice);
       item.count += 1;
     },
     decCartItem(state, action) {

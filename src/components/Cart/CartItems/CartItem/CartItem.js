@@ -33,7 +33,7 @@ const Info = styled.View`
   width: 30%;
 `;
 
-export const CartItem = ({ id, count, product, selectedProps }) => {
+export const CartItem = ({ id, count, product, selectedProps, price }) => {
   const dispatch = useDispatch();
 
   const handleDec = () => {
@@ -62,7 +62,7 @@ export const CartItem = ({ id, count, product, selectedProps }) => {
         <CountButton onPress={handleInc}>+</CountButton>
       </CountContainer>
       <PriceContainer>
-        <Typography fontWeight="600">10$</Typography>
+        <Typography fontWeight="600">{price}$</Typography>
       </PriceContainer>
     </Container>
   );
