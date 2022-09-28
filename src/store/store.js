@@ -19,6 +19,7 @@ import { authApi } from "../services/Auth.service";
 import { userReducer } from "./slices/user";
 import { productApi } from "../services/Product.service";
 import { cartReducer } from "./slices/cart";
+import { propertiesReducer } from "./slices/properties";
 
 const persistConfig = {
   key: "root",
@@ -32,6 +33,7 @@ const reducers = combineReducers({
   [productApi.reducerPath]: productApi.reducer,
   user: userReducer,
   cart: cartReducer,
+  properties: propertiesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -2,6 +2,7 @@ import { memo, useCallback, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
+import { useAdditionalPrice } from "../../hooks/useAdditionalPrice";
 import { addCartItem } from "../../store/slices/cart";
 import { mainTheme } from "../../theme";
 import { Button, SelectBar, Title } from "../../ui";
@@ -37,6 +38,10 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
 
   const [activeType, setActiveType] = useState(types ? types[0] : "none");
   const [activeSize, setActiveSize] = useState(sizes ? sizes[0] : "none");
+
+  const addationalPrice = useAdditionalPrice(activeSize, activeType);
+
+  console.log(addationalPrice);
 
   const handleAddPress = useCallback(() => {
     dispatch(

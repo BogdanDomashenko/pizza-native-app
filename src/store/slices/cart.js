@@ -3,6 +3,7 @@ import { generateCartId } from "../../utils/helpers/generateCartId";
 
 const initialState = {
   items: [],
+  totalPrice: 0,
 };
 
 const cartSlice = createSlice({
