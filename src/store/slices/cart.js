@@ -36,7 +36,8 @@ const cartSlice = createSlice({
     }),
     incCartItem(state, action) {
       const item = state.items.find((item) => item.id === action.payload.id);
-      item.price = item.price + (price + addationalPrice);
+      item.price =
+        item.price + (item.product.price + action.payload.addationalPrice);
       item.count += 1;
     },
     decCartItem(state, action) {

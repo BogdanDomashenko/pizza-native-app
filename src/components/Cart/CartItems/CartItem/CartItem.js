@@ -1,6 +1,7 @@
 import { View, Text } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
+import { useAdditionalPrice } from "../../../../hooks/useAdditionalPrice";
 import { decCartItem, incCartItem } from "../../../../store/slices/cart";
 import { Button, Typography } from "../../../../ui";
 import { CountButton } from "./CountButton/CountButton";
@@ -36,12 +37,17 @@ const Info = styled.View`
 export const CartItem = ({ id, count, product, selectedProps, price }) => {
   const dispatch = useDispatch();
 
+  const additionalPrice = useAdditionalPrice(
+    selectedProps.size,
+    selectedProps.type
+  );
+
   const handleDec = () => {
-    dispatch(decCartItem({ id }));
+    dispatch(decCartItem({ id, additionalPrice }));
   };
 
   const handleInc = () => {
-    dispatch(incCartItem({ id }));
+    dispatch(incCartItem({ id, additionalPrice }));
   };
 
   return (
