@@ -1,6 +1,11 @@
+import { ScrollView } from "react-native";
+import styled from "styled-components/native";
 import { useCart } from "../../../hooks";
-import { Wrapper } from "../../../ui";
 import { CartItem } from "./CartItem/CartItem";
+
+const Container = styled.ScrollView`
+  padding: 0 15px;
+`;
 
 export const CartItems = () => {
   const { items } = useCart();
@@ -8,7 +13,7 @@ export const CartItems = () => {
   console.log(items);
 
   return (
-    <Wrapper>
+    <Container>
       {items.length
         ? items.map((item) => (
             <CartItem
@@ -19,6 +24,6 @@ export const CartItems = () => {
             />
           ))
         : ""}
-    </Wrapper>
+    </Container>
   );
 };
