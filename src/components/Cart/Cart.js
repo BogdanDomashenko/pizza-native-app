@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { View, Text } from "react-native";
 import { CartButton } from "./CartButton";
 import { CartItems } from "./CartItems/CartItems";
 import { CartSheet } from "./CartSheet";

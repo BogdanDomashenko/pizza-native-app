@@ -20,7 +20,7 @@ const Container = styled.View`
   justify-content: center;
 `;
 
-const snapPoints = ["80%", "90%"];
+const snapPoints = ["80%"];
 
 export const CartSheet = ({ sheetRef, onClose, isOpened, children }) => {
   useEffect(() => {

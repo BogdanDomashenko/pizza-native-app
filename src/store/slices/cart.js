@@ -29,12 +29,28 @@ const cartSlice = createSlice({
         });
       }
     },
-    removeCartItem(state, action) {
-      state.items.delete(action.payload.id);
+    removeCartItem: (state, action) => ({
+      items: state.items.filter((item) => item.id === action.payload.id),
+    }),
+    incCartItem(state, action) {
+      const item = state.items.find((item) => item.id === action.payload.id);
+      item.count += 1;
+    },
+    decCartItem(state, action) {
+      const item = state.items.find((item) => item.id === action.payload.id);
+      if (item.count > 1) {
+        item.count -= 1;
+      }
     },
     resetCart: () => initialState,
   },
 });
 
-export const { addCartItem, removeCartItem, resetCart } = cartSlice.actions;
+export const {
+  addCartItem,
+  removeCartItem,
+  incCartItem,
+  decCartItem,
+  resetCart,
+} = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

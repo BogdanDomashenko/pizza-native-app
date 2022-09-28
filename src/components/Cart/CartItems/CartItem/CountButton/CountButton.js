@@ -10,9 +10,9 @@ const CountButtonContainer = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const CountButton = ({ children }) => {
+export const CountButton = ({ children, ...rest }) => {
   return (
-    <CountButtonContainer>
+    <CountButtonContainer {...rest}>
       <Text>{children}</Text>
     </CountButtonContainer>
   );
