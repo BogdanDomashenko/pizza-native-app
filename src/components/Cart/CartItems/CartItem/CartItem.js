@@ -31,7 +31,7 @@ const Info = styled.View`
   width: 30%;
 `;
 
-export const CartItem = ({ id, product, selectedProps }) => {
+export const CartItem = ({ id, count, product, selectedProps }) => {
   return (
     <Container>
       <CartItemImage
@@ -46,7 +46,7 @@ export const CartItem = ({ id, product, selectedProps }) => {
       </Info>
       <CountContainer>
         <CountButton>-</CountButton>
-        <Text>2</Text>
+        <Text>{count}</Text>
         <CountButton>+</CountButton>
       </CountContainer>
       <PriceContainer>

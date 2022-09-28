@@ -10,8 +10,6 @@ const Container = styled.ScrollView`
 export const CartItems = () => {
   const { items } = useCart();
 
-  console.log(items);
-
   return (
     <Container>
       {items.length
@@ -21,6 +19,7 @@ export const CartItems = () => {
               id={item.id}
               product={item.product}
               selectedProps={item.selectedProps}
+              count={item.count}
             />
           ))
         : ""}

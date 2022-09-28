@@ -12,11 +12,22 @@ const cartSlice = createSlice({
     addCartItem(state, action) {
       const { id, name, imageUrl, price, selectedProps } = action.payload;
 
-      state.items.push({
-        id: generateCartId(id, selectedProps.type, selectedProps.size),
-        product: { id, name, imageUrl, price },
-        selectedProps,
-      });
+      const itemId = generateCartId(id, selectedProps.type, selectedProps.size);
+
+      const item = state.items.find((item) => item.id === itemId);
+
+      console.log({ item });
+
+      if (item) {
+        item.count += 1;
+      } else {
+        state.items.push({
+          id: itemId,
+          product: { id, name, imageUrl, price },
+          selectedProps,
+          count: 1,
+        });
+      }
     },
     removeCartItem(state, action) {
       state.items.delete(action.payload.id);
