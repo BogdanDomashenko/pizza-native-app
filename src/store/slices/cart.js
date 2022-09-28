@@ -14,7 +14,8 @@ const cartSlice = createSlice({
 
       state.items.push({
         id: generateCartId(id, selectedProps.type, selectedProps.size),
-        item: action.payload,
+        product: { id, name, imageUrl, price },
+        selectedProps,
       });
     },
     removeCartItem(state, action) {

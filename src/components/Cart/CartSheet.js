@@ -22,7 +22,7 @@ const Container = styled.View`
 
 const snapPoints = ["80%"];
 
-export const CartSheet = ({ sheetRef, onClose, isOpened }) => {
+export const CartSheet = ({ sheetRef, onClose, isOpened, children }) => {
   useEffect(() => {
     if (isOpened) {
       sheetRef.current?.snapToIndex(0);
@@ -38,9 +38,7 @@ export const CartSheet = ({ sheetRef, onClose, isOpened }) => {
         index={0}
         onClose={onClose}
       >
-        <BottomSheetView>
-          <Text>123</Text>
-        </BottomSheetView>
+        <BottomSheetView>{children}</BottomSheetView>
       </BottomSheet>
     </Container>
   );

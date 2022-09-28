@@ -48,7 +48,7 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
         selectedProps: { type: activeType, size: activeSize },
       })
     );
-  }, []);
+  }, [activeSize, activeType]);
 
   return (
     <ProductView>

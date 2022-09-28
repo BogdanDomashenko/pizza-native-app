@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CartButton } from "./CartButton";
+import { CartItems } from "./CartItems/CartItems";
 import { CartSheet } from "./CartSheet";
 
 export const Cart = () => {
@@ -16,17 +17,11 @@ export const Cart = () => {
     sheetRef.current?.snapToIndex(0);
   };
 
-  useEffect(() => {
-    console.log(isOpened);
-  }, [isOpened]);
-
   return (
     <>
-      <CartSheet
-        sheetRef={sheetRef}
-        onClose={handleClose}
-        isOpened={isOpened}
-      />
+      <CartSheet sheetRef={sheetRef} onClose={handleClose} isOpened={isOpened}>
+        <CartItems />
+      </CartSheet>
       {!isOpened && <CartButton onPress={handlePress} />}
     </>
   );
