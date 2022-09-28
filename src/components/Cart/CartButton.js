@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import styled from "styled-components/native";
 import { useCart } from "../../hooks";
 import { Button } from "../../ui";
+import { CartSheet } from "./CartSheet";
 
 const ButtonStyled = styled(Button)`
   position: absolute;
@@ -17,10 +18,12 @@ const Separator = styled.View`
   background-color: #ffffff;
 `;
 
-export const CartButton = () => {
+export const CartButton = ({ onPress }) => {
   const cart = useCart();
 
   return cart.items.length ? (
-    <ButtonStyled variant="primary">Checkout</ButtonStyled>
+    <ButtonStyled variant="primary" onPress={onPress}>
+      Checkout
+    </ButtonStyled>
   ) : null;
 };

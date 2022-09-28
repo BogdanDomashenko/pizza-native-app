@@ -8,7 +8,7 @@ import {
   removeAccessToken,
 } from "../../services/AsyncStorage.service";
 import { resetUser } from "../../store/slices/user";
-import { Button, Container } from "../../ui";
+import { Button, Container, Wrapper } from "../../ui";
 
 const ButtonStyled = styled(Button)`
   margin-top: 10px;
@@ -27,17 +27,19 @@ export const Profile = () => {
 
   return (
     <Container>
-      {user.data?.id ? (
-        <View>
-          <Text>Phone: +{user.data.phoneNumber}</Text>
-          <Order id="1" price="40" />
-          <ButtonStyled variant="primary" onPress={handleLogoutPress}>
-            Logout
-          </ButtonStyled>
-        </View>
-      ) : (
-        <Signin />
-      )}
+      <Wrapper>
+        {user.data?.id ? (
+          <View>
+            <Text>Phone: +{user.data.phoneNumber}</Text>
+            <Order id="1" price="40" />
+            <ButtonStyled variant="primary" onPress={handleLogoutPress}>
+              Logout
+            </ButtonStyled>
+          </View>
+        ) : (
+          <Signin />
+        )}
+      </Wrapper>
     </Container>
   );
 };
