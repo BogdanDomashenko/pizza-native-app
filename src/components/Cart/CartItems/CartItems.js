@@ -1,6 +1,7 @@
-import { ScrollView, View } from "react-native";
+import { useEffect } from "react";
+import { Animated, ScrollView, View } from "react-native";
 import styled from "styled-components/native";
-import { useCart } from "../../../hooks";
+import { useCart, useShiftAnimation } from "../../../hooks";
 import { Button, Title, Typography } from "../../../ui";
 import { CartItem } from "./CartItem/CartItem";
 
@@ -20,7 +21,7 @@ const Price = styled(Title)`
   margin-right: 10px;
 `;
 
-export const CartItems = () => {
+export const CartItems = ({ onCheckout }) => {
   const { items, totalPrice } = useCart();
 
   return (
@@ -39,7 +40,9 @@ export const CartItems = () => {
         : ""}
       <Bottom>
         <Price>{totalPrice}$</Price>
-        <Button variant="success">Checkout</Button>
+        <Button variant="success" onPress={onCheckout}>
+          Checkout
+        </Button>
       </Bottom>
     </Container>
   );
