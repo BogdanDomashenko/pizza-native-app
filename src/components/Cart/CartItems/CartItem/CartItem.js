@@ -1,10 +1,17 @@
-import { View, Text } from "react-native";
+import { View, Text, Animated, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
 import { useAdditionalPrice } from "../../../../hooks/useAdditionalPrice";
-import { decCartItem, incCartItem } from "../../../../store/slices/cart";
+import {
+  decCartItem,
+  incCartItem,
+  removeCartItem,
+} from "../../../../store/slices/cart";
 import { Button, Typography } from "../../../../ui";
 import { CountButton } from "./CountButton/CountButton";
+
+import { Swipeable, TouchableOpacity } from "react-native-gesture-handler";
+import { mainTheme } from "../../../../theme";
 
 const Container = styled.View`
   flex-direction: row;
@@ -34,6 +41,39 @@ const Info = styled.View`
   width: 30%;
 `;
 
+const DeleteButton = styled(Animated.View)`
+  background-color: ${mainTheme.COLOR_DANGER};
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  margin-left: 10px;
+  width: 100px;
+`;
+
+const renderRightActions = (
+  progress: Animated.AnimatedInterpolation,
+  dragAnimatedValue: Animated.AnimatedInterpolation,
+  onPress
+) => {
+  const opacity = dragAnimatedValue.interpolate({
+    inputRange: [-150, 0],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+
+  return (
+    <View>
+      <DeleteButton style={[{}, { opacity }]}>
+        <TouchableOpacity onPress={onPress}>
+          <Typography color={mainTheme.COLOR_LIGHT} center>
+            Delete
+          </Typography>
+        </TouchableOpacity>
+      </DeleteButton>
+    </View>
+  );
+};
+
 export const CartItem = ({ id, count, product, selectedProps, price }) => {
   const dispatch = useDispatch();
 
@@ -50,26 +90,36 @@ export const CartItem = ({ id, count, product, selectedProps, price }) => {
     dispatch(incCartItem({ id, additionalPrice }));
   };
 
+  const handleRemoveItem = () => {
+    dispatch(removeCartItem({ id }));
+  };
+
   return (
-    <Container>
-      <CartItemImage
-        source={{
-          uri: product.imageUrl,
-        }}
-        resizeMode="contain"
-      />
-      <Info>
-        <Typography fontWeight="600">{product.name}</Typography>
-        <Typography fontWeight="300">{`${selectedProps?.size}inch  ${selectedProps?.type}`}</Typography>
-      </Info>
-      <CountContainer>
-        <CountButton onPress={handleDec}>-</CountButton>
-        <Text>{count}</Text>
-        <CountButton onPress={handleInc}>+</CountButton>
-      </CountContainer>
-      <PriceContainer>
-        <Typography fontWeight="600">{price}$</Typography>
-      </PriceContainer>
-    </Container>
+    <Swipeable
+      renderRightActions={(progress, dragAnimatedValue) =>
+        renderRightActions(progress, dragAnimatedValue, handleRemoveItem)
+      }
+    >
+      <Container>
+        <CartItemImage
+          source={{
+            uri: product.imageUrl,
+          }}
+          resizeMode="contain"
+        />
+        <Info>
+          <Typography fontWeight="600">{product.name}</Typography>
+          <Typography fontWeight="300">{`${selectedProps?.size}inch  ${selectedProps?.type}`}</Typography>
+        </Info>
+        <CountContainer>
+          <CountButton onPress={handleDec}>-</CountButton>
+          <Text>{count}</Text>
+          <CountButton onPress={handleInc}>+</CountButton>
+        </CountContainer>
+        <PriceContainer>
+          <Typography fontWeight="600">{price}$</Typography>
+        </PriceContainer>
+      </Container>
+    </Swipeable>
   );
 };
