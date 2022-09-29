@@ -18,17 +18,21 @@ const cartSlice = createSlice({
 
       const item = state.items.find((item) => item.id === itemId);
 
+      const addedPrice = price + addationalPrice;
+
       if (item) {
         item.count += 1;
-        item.price = item.price + (price + addationalPrice);
+        item.price = item.price + addedPrice;
+        state.totalPrice += addedPrice;
       } else {
         state.items.push({
           id: itemId,
           product: { id, name, imageUrl, price },
           selectedProps,
           count: 1,
-          price: price + addationalPrice,
+          price: addedPrice,
         });
+        state.totalPrice += addedPrice;
       }
     },
     removeCartItem: (state, action) => ({
@@ -36,14 +40,21 @@ const cartSlice = createSlice({
     }),
     incCartItem(state, action) {
       const item = state.items.find((item) => item.id === action.payload.id);
-      item.price =
-        item.price + (item.product.price + action.payload.addationalPrice);
+
+      const addedPrice = item.product.price + action.payload.additionalPrice;
+      item.price = item.price + addedPrice;
       item.count += 1;
+      state.totalPrice += addedPrice;
     },
     decCartItem(state, action) {
       const item = state.items.find((item) => item.id === action.payload.id);
+
       if (item.count > 1) {
+        const deducatedPrice =
+          item.product.price + action.payload.additionalPrice;
         item.count -= 1;
+        item.price = item.price - deducatedPrice;
+        state.totalPrice -= deducatedPrice;
       }
     },
     resetCart: () => initialState,

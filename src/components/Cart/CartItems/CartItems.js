@@ -1,7 +1,7 @@
 import { ScrollView, View } from "react-native";
 import styled from "styled-components/native";
 import { useCart } from "../../../hooks";
-import { Button } from "../../../ui";
+import { Button, Title, Typography } from "../../../ui";
 import { CartItem } from "./CartItem/CartItem";
 
 const Container = styled.ScrollView`
@@ -10,12 +10,18 @@ const Container = styled.ScrollView`
 `;
 
 const Bottom = styled.View`
-  align-items: flex-end;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
   padding-bottom: 10px;
 `;
 
+const Price = styled(Title)`
+  margin-right: 10px;
+`;
+
 export const CartItems = () => {
-  const { items } = useCart();
+  const { items, totalPrice } = useCart();
 
   return (
     <Container>
@@ -32,6 +38,7 @@ export const CartItems = () => {
           ))
         : ""}
       <Bottom>
+        <Price>{totalPrice}$</Price>
         <Button variant="success">Checkout</Button>
       </Bottom>
     </Container>
