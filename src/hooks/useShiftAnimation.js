@@ -18,7 +18,7 @@ export const useShiftAnimation = (endCoef, hidden) => {
   const hide = () => {
     Animated.timing(value, {
       toValue: animateState.end,
-      duration: 100,
+      duration: 300,
       useNativeDriver: true,
     }).start();
   };

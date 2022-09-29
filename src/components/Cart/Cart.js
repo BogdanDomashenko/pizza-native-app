@@ -33,7 +33,12 @@ export const Cart = () => {
 
   const handleCheckout = () => {
     hideItems();
-    showPayment();
+    setTimeout(showPayment, 200);
+  };
+
+  const handleCancelPayment = () => {
+    hidePayment();
+    setTimeout(showItems, 200);
   };
 
   return (
@@ -47,7 +52,7 @@ export const Cart = () => {
         <Animated.ScrollView
           style={{ transform: [{ translateX: peymentPosition }] }}
         >
-          <Payment />
+          <Payment onCancel={handleCancelPayment} />
         </Animated.ScrollView>
       </CartSheet>
       {!isOpened && <CartButton onPress={handlePress} />}
