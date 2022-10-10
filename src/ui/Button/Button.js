@@ -33,6 +33,7 @@ const handleTextColor = (variant, isPressed) => {
     case "success":
       return mainTheme.COLOR_LIGHT;
     default:
+      return mainTheme.COLOR_LIGHT;
       return;
   }
 };

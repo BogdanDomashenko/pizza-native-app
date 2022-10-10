@@ -7,6 +7,7 @@ const InputStyled = styled.TextInput`
   border: 1px solid ${(props) => props.borderColor};
   border-radius: 5px;
   padding: 15px 20px;
+  width: ${(props) => (props.width ? props.width : "auto")};
 `;
 
 export const Input = (props) => {
@@ -26,6 +27,7 @@ export const Input = (props) => {
       onFocus={handleFocus}
       onBlur={handleBlur}
       borderColor={borderColor}
+      width={props.width}
     />
   );
 };

@@ -10,6 +10,7 @@ export const Cart = () => {
   const sheetRef = useRef(null);
 
   const [isOpened, setIsOpened] = useState(false);
+  const [isPaymentVisible, setIsPaymentVisible] = useState(false);
 
   const {
     value: cartItemsPosition,
@@ -34,11 +35,17 @@ export const Cart = () => {
   const handleCheckout = () => {
     hideItems();
     setTimeout(showPayment, 200);
+    toggleIsPaymentVisisble();
   };
 
   const handleCancelPayment = () => {
     hidePayment();
     setTimeout(showItems, 200);
+    toggleIsPaymentVisisble();
+  };
+
+  const toggleIsPaymentVisisble = () => {
+    setTimeout(() => setIsPaymentVisible(!isPaymentVisible), 200);
   };
 
   return (
@@ -47,12 +54,18 @@ export const Cart = () => {
         <Animated.ScrollView
           style={{ transform: [{ translateX: cartItemsPosition }] }}
         >
-          <CartItems onCheckout={handleCheckout} />
+          <CartItems
+            onCheckout={handleCheckout}
+            isVisible={!isPaymentVisible}
+          />
         </Animated.ScrollView>
         <Animated.ScrollView
           style={{ transform: [{ translateX: peymentPosition }] }}
         >
-          <Payment onCancel={handleCancelPayment} />
+          <Payment
+            onCancel={handleCancelPayment}
+            isVisible={isPaymentVisible}
+          />
         </Animated.ScrollView>
       </CartSheet>
       {!isOpened && <CartButton onPress={handlePress} />}

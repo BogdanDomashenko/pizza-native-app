@@ -21,10 +21,10 @@ const Price = styled(Title)`
   margin-right: 10px;
 `;
 
-export const CartItems = ({ onCheckout }) => {
+export const CartItems = ({ onCheckout, isVisible }) => {
   const { items, totalPrice } = useCart();
 
-  return (
+  return isVisible ? (
     <Container>
       {items.length
         ? items.map((item) => (
@@ -45,5 +45,7 @@ export const CartItems = ({ onCheckout }) => {
         </Button>
       </Bottom>
     </Container>
+  ) : (
+    ""
   );
 };
