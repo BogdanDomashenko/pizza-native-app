@@ -7,7 +7,7 @@ import { CartSheet } from "./CartSheet";
 const ButtonStyled = styled(Button)`
   position: absolute;
   right: 10px;
-  bottom: 55px;
+  bottom: 10%;
 `;
 
 const TextStyled = styled.Text``;

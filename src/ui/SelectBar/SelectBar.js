@@ -8,8 +8,8 @@ const Select = styled.View`
   padding: 4px;
 `;
 
-const Option = styled.Pressable`
-  background-color: ${(props) => (props.seleced ? "#ffffff" : "transparent")};
+const Option = styled.TouchableOpacity`
+  background-color: ${(props) => (props.selected ? "#ffffff" : "transparent")};
   padding: 8px;
   flex: 1 1;
   margin: 0 6px;
@@ -35,22 +35,22 @@ export const SelectBar = ({
       <Row>
         {itemsRow1?.map((item) => (
           <Option
-            key={item}
-            seleced={item === activeItemRow1}
-            onPress={() => onSelectRow1 && onSelectRow1(item)}
+            key={item.id}
+            selected={item.name === activeItemRow1}
+            onPress={() => onSelectRow1 && onSelectRow1(item.name)}
           >
-            <Text>{item}</Text>
+            <Text>{item.name}</Text>
           </Option>
         ))}
       </Row>
       <Row>
         {itemsRow2?.map((item) => (
           <Option
-            key={item}
-            seleced={item === activeItemRow2}
-            onPress={() => onSelectRow2 && onSelectRow2(item)}
+            key={item.id}
+            selected={item.name === activeItemRow2}
+            onPress={() => onSelectRow2 && onSelectRow2(item.name)}
           >
-            <Text>{item}</Text>
+            <Text>{item.name}</Text>
           </Option>
         ))}
       </Row>

@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
-import styled from "styled-components/native";
+
 import { Products } from "../components";
+import { Categories } from "../components/Categories/Categories";
 import { Button, Container } from "../ui";
 
 export const Home = () => {
@@ -9,7 +11,6 @@ export const Home = () => {
 
   return (
     <Container>
-      <Text>Home</Text>
       <Products />
     </Container>
   );

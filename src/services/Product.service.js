@@ -6,11 +6,16 @@ export const productApi = createApi({
   baseQuery: fetchWithToken,
   endpoints: (build) => ({
     availableProducts: build.query({
-      query: (page) => ({
-        url: `/stock/aviablePizzas?page=${page}&&size=8&&category=0`,
+      query: (page, activeCategory) => ({
+        url: `/stock/available?page=${page}&&size=8&&category=${activeCategory}`,
+      }),
+    }),
+    categories: build.query({
+      query: () => ({
+        url: `/category/list`,
       }),
     }),
   }),
 });
 
-export const { useAvailableProductsQuery } = productApi;
+export const { useAvailableProductsQuery, useCategoriesQuery } = productApi;

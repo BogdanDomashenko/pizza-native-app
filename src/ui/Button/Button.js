@@ -19,6 +19,10 @@ const handleVariant = (variant, isPressed) => {
       };
     case "success":
       return { backgroundColor: mainTheme.COLOR_SUCCESS };
+    case "dark-outlined":
+      return {
+        border: `1px solid ${mainTheme.COLOR_DARK}`,
+      };
     default:
       return { backgroundColor: mainTheme.COLOR_MUTED };
   }
@@ -32,6 +36,8 @@ const handleTextColor = (variant, isPressed) => {
       return isPressed ? mainTheme.COLOR_LIGHT : mainTheme.COLOR_PRIMARY;
     case "success":
       return mainTheme.COLOR_LIGHT;
+    case "dark-outlined":
+      return mainTheme.COLOR_DARK;
     default:
       return mainTheme.COLOR_LIGHT;
       return;
@@ -42,7 +48,7 @@ const Icon = styled(Ionicons)`
   color: ${(props) => handleTextColor(props.variant, props.isPressed)};
 `;
 
-const ButtonStyled = styled.Pressable`
+const ButtonStyled = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
@@ -82,8 +88,7 @@ export const Button = ({
       variant={variant}
       isPressed={isPressed}
       {...rest}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
+      activeOpacity={0.7}
     >
       {icon && (
         <Icon
