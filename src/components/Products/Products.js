@@ -23,6 +23,10 @@ export const Products = () => {
     console.log(cart);
   }, [cart]);
 
+  useEffect(() => {
+    setPage(0);
+  }, [activeCategory]);
+
   const [page, setPage] = useState(0);
 
   const { products, isLoading, refetch } = useFlatProudcts(
@@ -30,8 +34,10 @@ export const Products = () => {
     activeCategory
   );
 
-  const handleEndReached = () => {
-    setPage(page + 1);
+  const handleEndReached = ({ distanceFromEnd }) => {
+    if (distanceFromEnd >= 0) {
+      setPage(page + 1);
+    }
   };
 
   return (
@@ -54,6 +60,7 @@ export const Products = () => {
             types={item.Types}
           />
         )}
+        onEndReachedThreshold={0.5}
         onEndReached={handleEndReached}
         refreshing={isLoading}
         onRefresh={refetch}

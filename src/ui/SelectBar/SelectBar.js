@@ -30,30 +30,43 @@ export const SelectBar = ({
   activeItemRow2,
   onSelectRow2,
 }) => {
+  const hasRow1 = !(itemsRow1[0].name === "none");
+  const hasRow2 = !(itemsRow2[0].name === "none");
+
+  const hasRow = hasRow1 || hasRow2;
+
+  if (!hasRow) {
+    return null;
+  }
+
   return (
     <Select>
-      <Row>
-        {itemsRow1?.map((item) => (
-          <Option
-            key={item.id}
-            selected={item.name === activeItemRow1}
-            onPress={() => onSelectRow1 && onSelectRow1(item.name)}
-          >
-            <Text>{item.name}</Text>
-          </Option>
-        ))}
-      </Row>
-      <Row>
-        {itemsRow2?.map((item) => (
-          <Option
-            key={item.id}
-            selected={item.name === activeItemRow2}
-            onPress={() => onSelectRow2 && onSelectRow2(item.name)}
-          >
-            <Text>{item.name}</Text>
-          </Option>
-        ))}
-      </Row>
+      {hasRow1 && (
+        <Row>
+          {itemsRow1?.map((item) => (
+            <Option
+              key={item.id}
+              selected={item.name === activeItemRow1}
+              onPress={() => onSelectRow1 && onSelectRow1(item.name)}
+            >
+              <Text>{item.name}</Text>
+            </Option>
+          ))}
+        </Row>
+      )}
+      {hasRow2 && (
+        <Row>
+          {itemsRow2?.map((item) => (
+            <Option
+              key={item.id}
+              selected={item.name === activeItemRow2}
+              onPress={() => onSelectRow2 && onSelectRow2(item.name)}
+            >
+              <Text>{item.name}</Text>
+            </Option>
+          ))}
+        </Row>
+      )}
     </Select>
   );
 };
