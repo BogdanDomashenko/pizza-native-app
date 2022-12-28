@@ -8,6 +8,7 @@ const usePrevious = (value) => {
   useEffect(() => {
     ref.current = value;
   }, [value]);
+
   return ref.current;
 };
 
@@ -17,7 +18,7 @@ export const useFlatProudcts = (page, activeCategory) => {
   //const prevActiveCategory = useRef(activeCategory);
   const prevActiveCategory = usePrevious(activeCategory);
 
-  const { data, isLoading, refetch } = useAvailableProductsQuery({
+  const { data, isLoading, refetch, isFetching } = useAvailableProductsQuery({
     page,
     activeCategory,
   });
@@ -29,22 +30,18 @@ export const useFlatProudcts = (page, activeCategory) => {
   // }, [activeCategory]);
 
   useEffect(() => {
-    console.log(prevActiveCategory);
-    if (!isLoading && data?.list) {
+    setProducts([]);
+  }, [activeCategory]);
+
+  useEffect(() => {
+    if (!isFetching && data?.list) {
       if (prevActiveCategory && prevActiveCategory === activeCategory) {
-        console.log(true);
         setProducts([...products, ...data.list]);
       } else {
-        console.log(false);
         setProducts(data.list);
       }
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   prevActiveCategory.current = activeCategory;
-  //   console.log(activeCategory);
-  // }, [activeCategory]);
-
-  return { products, isLoading, refetch };
+  return { products, isLoading, refetch, isFetching };
 };

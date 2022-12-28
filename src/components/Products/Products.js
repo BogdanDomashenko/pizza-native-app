@@ -29,7 +29,7 @@ export const Products = () => {
 
   const [page, setPage] = useState(0);
 
-  const { products, isLoading, refetch } = useFlatProudcts(
+  const { products, isLoading, refetch, isFetching } = useFlatProudcts(
     page,
     activeCategory
   );
@@ -62,7 +62,7 @@ export const Products = () => {
         )}
         onEndReachedThreshold={0.5}
         onEndReached={handleEndReached}
-        refreshing={isLoading}
+        refreshing={isFetching}
         onRefresh={refetch}
       />
     </Container>
