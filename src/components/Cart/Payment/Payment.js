@@ -1,6 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 import { Text } from "react-native";
 import styled from "styled-components/native";
+import { useCart } from "../../../hooks";
 import {
   Button,
   Container,
@@ -25,8 +26,11 @@ export const Payment = ({ onCancel, isVisible }) => {
     formState: { errors, isValid },
   } = useForm({ mode: "onBlur" });
 
+  const { items } = useCart();
+
   const onSubmit = async (data) => {
     console.log(data);
+    console.log(items);
   };
 
   return isVisible ? (
@@ -146,7 +150,7 @@ export const Payment = ({ onCancel, isVisible }) => {
 
         <FromBottom>
           <Button onPress={onCancel}>Go back</Button>
-          <Button variant="success" onPress={onCancel}>
+          <Button variant="success" onPress={handleSubmit(onSubmit)}>
             Checkout
           </Button>
         </FromBottom>

@@ -38,5 +38,6 @@ export const fetchWithToken = async (args, api, extraOptions) => {
       }
     }
   }
+
   return result;
 };

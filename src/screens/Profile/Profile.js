@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -7,6 +8,7 @@ import {
   getAccessToken,
   removeAccessToken,
 } from "../../services/AsyncStorage.service";
+import { useOrderListQuery } from "../../services/Order.service";
 import { resetUser } from "../../store/slices/user";
 import { Button, Container, Wrapper } from "../../ui";
 
@@ -20,10 +22,16 @@ export const Profile = () => {
 
   const user = useUser();
 
+  const { data, isLoading } = useOrderListQuery(1);
+
   const handleLogoutPress = async () => {
     await removeAccessToken();
     dispatch(resetUser());
   };
+
+  useEffect(() => {
+    console.log("DATA", data);
+  }, [data]);
 
   return (
     <Container>

@@ -20,6 +20,7 @@ import { userReducer } from "./slices/user";
 import { productApi } from "../services/Product.service";
 import { cartReducer } from "./slices/cart";
 import { propertiesReducer } from "./slices/properties";
+import { orderApi } from "../services/Order.service";
 
 const persistConfig = {
   key: "root",
@@ -31,6 +32,7 @@ const persistConfig = {
 const reducers = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
+  [orderApi.reducerPath]: orderApi.reducer,
   user: userReducer,
   cart: cartReducer,
   properties: propertiesReducer,
@@ -47,7 +49,8 @@ const store = configureStore({
       },
     })
       .concat(authApi.middleware)
-      .concat(productApi.middleware),
+      .concat(productApi.middleware)
+      .concat(orderApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
 
