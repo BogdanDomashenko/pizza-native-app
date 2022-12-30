@@ -46,8 +46,8 @@ export const SelectBar = ({
           {itemsRow1?.map((item) => (
             <Option
               key={item.id}
-              selected={item.name === activeItemRow1}
-              onPress={() => onSelectRow1 && onSelectRow1(item.name)}
+              selected={item.name === activeItemRow1.name}
+              onPress={() => onSelectRow1 && onSelectRow1(item)}
             >
               <Text>{item.name}</Text>
             </Option>
@@ -59,8 +59,8 @@ export const SelectBar = ({
           {itemsRow2?.map((item) => (
             <Option
               key={item.id}
-              selected={item.name === activeItemRow2}
-              onPress={() => onSelectRow2 && onSelectRow2(item.name)}
+              selected={item.name === activeItemRow2.name}
+              onPress={() => onSelectRow2 && onSelectRow2(item)}
             >
               <Text>{item.name}</Text>
             </Option>

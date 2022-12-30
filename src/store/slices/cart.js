@@ -14,7 +14,11 @@ const cartSlice = createSlice({
       const { id, name, imageUrl, price, selectedProps, addationalPrice } =
         action.payload;
 
-      const itemId = generateCartId(id, selectedProps.type, selectedProps.size);
+      const itemId = generateCartId(
+        id,
+        selectedProps.type.name,
+        selectedProps.size.name
+      );
 
       const item = state.items.find((item) => item.id === itemId);
 

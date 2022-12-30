@@ -2,6 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Text } from "react-native";
 import styled from "styled-components/native";
 import { useCart } from "../../../hooks";
+import { usePhantomCheckoutMutation } from "../../../services/Order.service";
 import {
   Button,
   Container,
@@ -28,9 +29,17 @@ export const Payment = ({ onCancel, isVisible }) => {
 
   const { items } = useCart();
 
-  const onSubmit = async (data) => {
-    console.log(data);
-    console.log(items);
+  const [phantomCheckout, { isLoading, error }] = usePhantomCheckoutMutation();
+
+  const onSubmit = async (shippingData) => {
+    const orderList = items.map((item) => ({
+      id: item.product.id,
+      count: item.count,
+      TypeId: item.selectedProps.type.id,
+      SizeId: item.selectedProps.size.id,
+    }));
+
+    phantomCheckout({ orderList, shippingData });
   };
 
   return isVisible ? (
@@ -45,7 +54,6 @@ export const Payment = ({ onCancel, isVisible }) => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                secureTextEntry={true}
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}

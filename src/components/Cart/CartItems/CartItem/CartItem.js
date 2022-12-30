@@ -109,7 +109,7 @@ export const CartItem = ({ id, count, product, selectedProps, price }) => {
         />
         <Info>
           <Typography fontWeight="600">{product.name}</Typography>
-          <Typography fontWeight="300">{`${selectedProps?.size}inch  ${selectedProps?.type}`}</Typography>
+          <Typography fontWeight="300">{`${selectedProps?.size.name}inch  ${selectedProps?.type.name}`}</Typography>
         </Info>
         <CountContainer>
           <CountButton onPress={handleDec}>-</CountButton>

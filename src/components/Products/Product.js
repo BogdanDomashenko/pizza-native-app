@@ -36,8 +36,8 @@ const CountContainer = styled.Text`
 export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
   const dispatch = useDispatch();
 
-  const [activeType, setActiveType] = useState(types ? types[0].name : "none");
-  const [activeSize, setActiveSize] = useState(sizes ? sizes[0].name : "none");
+  const [activeType, setActiveType] = useState(types ? types[0] : "none");
+  const [activeSize, setActiveSize] = useState(sizes ? sizes[0] : "none");
 
   const addationalPrice = useAdditionalPrice(activeSize, activeType);
 
