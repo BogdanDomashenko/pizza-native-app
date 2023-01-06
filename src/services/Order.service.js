@@ -17,7 +17,18 @@ export const orderApi = createApi({
         body: { orderList, shippingData },
       }),
     }),
+    checkout: build.mutation({
+      query: ({ orderList, shippingData }) => ({
+        method: "POST",
+        url: "/order/checkout",
+        body: { orderList, shippingData },
+      }),
+    }),
   }),
 });
 
-export const { useOrderListQuery, usePhantomCheckoutMutation } = orderApi;
+export const {
+  useOrderListQuery,
+  usePhantomCheckoutMutation,
+  useCheckoutMutation,
+} = orderApi;

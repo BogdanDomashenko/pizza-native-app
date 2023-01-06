@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Text } from "react-native";
 import styled from "styled-components/native";
-import { useCart } from "../../../hooks";
+import { useCart, useUser } from "../../../hooks";
 import { usePhantomCheckoutMutation } from "../../../services/Order.service";
 import {
   Button,
@@ -13,6 +14,7 @@ import {
   Title,
   Wrapper,
 } from "../../../ui";
+import { Select } from "../../../ui/Select/Select";
 
 const FromBottom = styled.View`
   margin-top: 20px;
@@ -20,27 +22,23 @@ const FromBottom = styled.View`
   justify-content: space-between;
 `;
 
-export const Payment = ({ onCancel, isVisible }) => {
+const paymentMethods = [
+  { key: "1", value: "card" },
+  { key: "2", value: "cash" },
+];
+
+export const Payment = ({ onCancel, isVisible, onSubmit }) => {
+  const user = useUser();
+
   const {
     control,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({ mode: "onBlur" });
+  } = useForm({
+    mode: "onBlur",
+  });
 
-  const { items } = useCart();
-
-  const [phantomCheckout, { isLoading, error }] = usePhantomCheckoutMutation();
-
-  const onSubmit = async (shippingData) => {
-    const orderList = items.map((item) => ({
-      id: item.product.id,
-      count: item.count,
-      TypeId: item.selectedProps.type.id,
-      SizeId: item.selectedProps.size.id,
-    }));
-
-    phantomCheckout({ orderList, shippingData });
-  };
+  const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
 
   return isVisible ? (
     <Container>
@@ -58,9 +56,11 @@ export const Payment = ({ onCancel, isVisible }) => {
                 onChangeText={(text) => onChange(text)}
                 value={value}
                 placeholder="Email"
+                error="error"
               />
             )}
             name="email"
+            defaultValue={user.shippingData.email}
           />
         </FormItem>
         <FormItem>
@@ -71,7 +71,6 @@ export const Payment = ({ onCancel, isVisible }) => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                secureTextEntry={true}
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
@@ -80,12 +79,12 @@ export const Payment = ({ onCancel, isVisible }) => {
               />
             )}
             name="firstName"
+            defaultValue={user.shippingData.firstName}
           />
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                secureTextEntry={true}
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
@@ -94,6 +93,7 @@ export const Payment = ({ onCancel, isVisible }) => {
               />
             )}
             name="lastName"
+            defaultValue={user.shippingData.lastName}
           />
         </FormItemRow>
         <FormItemRow>
@@ -101,7 +101,6 @@ export const Payment = ({ onCancel, isVisible }) => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                secureTextEntry={true}
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
@@ -110,12 +109,12 @@ export const Payment = ({ onCancel, isVisible }) => {
               />
             )}
             name="city"
+            defaultValue={user.shippingData.city}
           />
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                secureTextEntry={true}
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
@@ -124,6 +123,7 @@ export const Payment = ({ onCancel, isVisible }) => {
               />
             )}
             name="postCode"
+            defaultValue={user.shippingData.postCode}
           />
         </FormItemRow>
         <FormItem>
@@ -131,7 +131,6 @@ export const Payment = ({ onCancel, isVisible }) => {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                secureTextEntry={true}
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
@@ -139,6 +138,7 @@ export const Payment = ({ onCancel, isVisible }) => {
               />
             )}
             name="address"
+            defaultValue={user.shippingData.address}
           />
         </FormItem>
         <FormItem>
@@ -148,11 +148,28 @@ export const Payment = ({ onCancel, isVisible }) => {
               <PhoneTextField
                 initialCountry={"us"}
                 onBlur={onBlur}
-                onChangePhoneNumber={(text) => onChange(text)}
+                onChangePhoneNumber={(text) => onChange(text.replace("+", ""))}
                 initialValue={value}
               />
             )}
-            name="phoneNumber"
+            name="phone"
+            defaultValue={user.data.phoneNumber || user.shippingData.phone}
+          />
+        </FormItem>
+        <FormItem>
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Select
+                setSelected={(val) => onChange(val)}
+                onBlur={onBlur}
+                data={paymentMethods}
+                save="value"
+                search={false}
+              />
+            )}
+            name="paymentMethod"
+            defaultValue={user.shippingData.paymentMethod}
           />
         </FormItem>
 

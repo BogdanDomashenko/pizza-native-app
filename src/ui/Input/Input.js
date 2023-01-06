@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
-import { TextInput } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { mainTheme } from "../../theme";
 
 const InputStyled = styled.TextInput`
@@ -8,10 +7,17 @@ const InputStyled = styled.TextInput`
   border-radius: 5px;
   padding: 15px 20px;
   width: ${(props) => (props.width ? props.width : "auto")};
+  color: "red";
 `;
 
-export const Input = (props) => {
+export const Input = ({ error, width, ...rest }) => {
   const [borderColor, setBorderColor] = useState(mainTheme.COLOR_MUTED_MIDDLE);
+
+  useEffect(() => {
+    if (error) {
+      setBorderColor(mainTheme.COLOR_DANGER);
+    }
+  }, [error]);
 
   const handleFocus = () => {
     setBorderColor(mainTheme.COLOR_PRIMARY);
@@ -23,11 +29,12 @@ export const Input = (props) => {
 
   return (
     <InputStyled
-      {...props}
+      {...rest}
       onFocus={handleFocus}
       onBlur={handleBlur}
       borderColor={borderColor}
-      width={props.width}
+      width={width}
+      error={error}
     />
   );
 };

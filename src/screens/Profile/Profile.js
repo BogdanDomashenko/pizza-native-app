@@ -22,7 +22,7 @@ export const Profile = () => {
 
   const user = useUser();
 
-  const { data, isLoading } = useOrderListQuery(1);
+  const { data, isLoading } = useOrderListQuery(0);
 
   const handleLogoutPress = async () => {
     await removeAccessToken();

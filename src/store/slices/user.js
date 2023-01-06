@@ -8,6 +8,16 @@ const initialState = {
     id: null,
     phoneNumber: null,
   },
+  shippingData: {
+    email: null,
+    firstName: null,
+    lastName: null,
+    city: null,
+    postCode: null,
+    address: null,
+    phone: null,
+    paymentMethod: null,
+  },
 };
 
 const userSlice = createSlice({
@@ -23,9 +33,16 @@ const userSlice = createSlice({
     );
   },
   reducers: {
-    resetUser: (state, action) => initialState,
+    resetUser: () => initialState,
+    setShippingData: (state, action) => {
+      state.shippingData = action.payload;
+    },
+    resetShippingData: (state, action) => {
+      state.shippingData = initialState.shippingData;
+    },
   },
 });
 
-export const { resetUser } = userSlice.actions;
+export const { resetUser, setShippingData, resetShippingData } =
+  userSlice.actions;
 export const userReducer = userSlice.reducer;
