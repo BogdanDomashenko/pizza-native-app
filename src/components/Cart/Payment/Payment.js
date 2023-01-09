@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { Text } from "react-native";
 import styled from "styled-components/native";
 import { useCart, useUser } from "../../../hooks";
@@ -27,6 +29,19 @@ const paymentMethods = [
   { key: "2", value: "cash" },
 ];
 
+const PaymentSchema = yup
+  .object()
+  .shape({
+    email: yup.string().email().required("required"),
+    firstName: yup.string().required("required"),
+    lastName: yup.string().required("required"),
+    city: yup.string().required("required"),
+    postCode: yup.string().required("required"),
+    phoneNumber: yup.string().min("8", "Must have at latest 8 digits"),
+    paymentMethods: yup.string().required("required"),
+  })
+  .required();
+
 export const Payment = ({ onCancel, isVisible, onSubmit }) => {
   const user = useUser();
 
@@ -36,6 +51,7 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
     formState: { errors, isValid },
   } = useForm({
     mode: "onBlur",
+    resolver: yupResolver(PaymentSchema),
   });
 
   const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
@@ -50,13 +66,17 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
         <FormItem>
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
               <Input
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
                 placeholder="Email"
-                error="error"
+                autoCapitalize="none"
+                error={error && error.message}
               />
             )}
             name="email"
@@ -69,13 +89,17 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
         <FormItemRow>
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
               <Input
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
                 placeholder="First name"
                 width="49%"
+                error={error && error.message}
               />
             )}
             name="firstName"
@@ -83,13 +107,17 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
           />
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
               <Input
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
                 placeholder="Last name"
                 width="49%"
+                error={error && error.message}
               />
             )}
             name="lastName"
@@ -99,13 +127,17 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
         <FormItemRow>
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
               <Input
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
                 placeholder="City"
                 width="49%"
+                error={error && error.message}
               />
             )}
             name="city"
@@ -113,13 +145,17 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
           />
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
               <Input
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
                 placeholder="Post code"
                 width="49%"
+                error={error && error.message}
               />
             )}
             name="postCode"
@@ -129,11 +165,15 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
         <FormItem>
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
               <Input
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(text)}
                 value={value}
+                error={error && error.message}
                 placeholder="Address"
               />
             )}
@@ -144,7 +184,10 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
         <FormItem>
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
               <PhoneTextField
                 initialCountry={"us"}
                 onBlur={onBlur}
@@ -159,7 +202,10 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
         <FormItem>
           <Controller
             control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
               <Select
                 setSelected={(val) => onChange(val)}
                 onBlur={onBlur}
