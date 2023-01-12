@@ -22,13 +22,13 @@ const baseQuery = fetchBaseQuery({
 
 export const fetchWithToken = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
+
   if (result.error) {
-    if (
-      result.error.status === 400 ||
-      result.error.status === 411 ||
-      result.error.status === 409
-    ) {
+    const { status } = result.error;
+
+    if (status === 400 || status === 411 || status === 409 || status === 403) {
       const refreshResult = await baseQuery("token/refresh", api, extraOptions);
+
       if (refreshResult.data) {
         await setAccessToken(refreshResult.headers.authorization);
         result = await baseQuery(args, api, extraOptions);

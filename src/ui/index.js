@@ -6,3 +6,4 @@ export * from "./Typography/Typography";
 export * from "./PhoneTextField/PhoneTextField";
 export * from "./Wrapper/Wrapper";
 export * from "./Form/Form";
+export * from "./Field/Field";

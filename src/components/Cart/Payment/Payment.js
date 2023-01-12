@@ -37,8 +37,8 @@ const PaymentSchema = yup
     lastName: yup.string().required("required"),
     city: yup.string().required("required"),
     postCode: yup.string().required("required"),
-    phoneNumber: yup.string().min("8", "Must have at latest 8 digits"),
-    paymentMethods: yup.string().required("required"),
+    phone: yup.string().min("8", "Must have at latest 8 digits"),
+    paymentMethod: yup.string().required("required"),
   })
   .required();
 
@@ -53,6 +53,10 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
     mode: "onBlur",
     resolver: yupResolver(PaymentSchema),
   });
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
 
@@ -193,6 +197,7 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
                 onBlur={onBlur}
                 onChangePhoneNumber={(text) => onChange(text.replace("+", ""))}
                 initialValue={value}
+                error={error}
               />
             )}
             name="phone"

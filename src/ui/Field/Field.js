@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { mainTheme } from "../../theme";
 import { Typography } from "../Typography/Typography";
 
@@ -21,27 +21,24 @@ const ErrorLabel = styled(Typography)`
   bottom: -30%;
 `;
 
-export const Input = ({ error, width, ...rest }) => {
-  const [borderColor, setBorderColor] = useState(mainTheme.COLOR_MUTED_MIDDLE);
-
-  // const handleFocus = () => {
-  //   setBorderColor(mainTheme.COLOR_PRIMARY);
-  // };
-
-  // const handleBlur = () => {
-  //   setBorderColor(mainTheme.COLOR_MUTED_MIDDLE);
-  // };
+export const Field = ({ render, error, width, ...rest }) => {
+  const borderColor = error
+    ? mainTheme.COLOR_DANGER
+    : mainTheme.COLOR_MUTED_MIDDLE;
 
   return (
     <Container width={width}>
-      <InputStyled
+      {render({ borderColor })}
+      {/* <InputStyled
         {...rest}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         borderColor={error ? mainTheme.COLOR_DANGER : borderColor}
         error={error}
         style={{
           ...(error && { color: mainTheme.COLOR_DANGER }),
         }}
-      />
+      /> */}
       {error && (
         <ErrorLabel
           color={mainTheme.COLOR_DANGER}

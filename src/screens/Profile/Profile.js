@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import { Text, View } from "react-native";
-import { FlatList } from "react-native-web";
+import { useEffect, useState } from "react";
+import { Text, View, FlatList } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Order, Signin } from "../../components";
@@ -12,7 +11,7 @@ import {
 } from "../../services/AsyncStorage.service";
 import { useOrderListQuery } from "../../services/Order.service";
 import { resetUser } from "../../store/slices/user";
-import { Button, Container, Wrapper } from "../../ui";
+import { Button, Container, Typography, Wrapper } from "../../ui";
 
 const ButtonStyled = styled(Button)`
   margin-top: 10px;
@@ -24,10 +23,15 @@ export const Profile = () => {
 
   const user = useUser();
 
-  const { orders, isLoading, refetch, isFetching } = useFlatOrders(
-    page,
-    activeCategory
-  );
+  const [page, setPage] = useState(0);
+
+  const { orders, isLoading, refetch, isFetching } = useFlatOrders(page);
+
+  const handleEndReached = ({ distanceFromEnd }) => {
+    if (distanceFromEnd >= 0) {
+      setPage(page + 1);
+    }
+  };
 
   const handleLogoutPress = async () => {
     await removeAccessToken();
@@ -35,8 +39,8 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    console.log("DATA", data);
-  }, [data]);
+    console.log("DATA", orders);
+  }, [orders]);
 
   return (
     <Container>
@@ -45,32 +49,17 @@ export const Profile = () => {
           <View>
             <Text>Phone: +{user.data.phoneNumber}</Text>
             <FlatList
-              data={products}
-              keyExtractor={(item) => item.id}
-              ListHeaderComponent={
-                <Categories
-                  active={activeCategory}
-                  onChange={setActiveCategory}
-                />
-              }
-              renderItem={({ item }) => (
-                <Product
-                  key={item.id}
-                  id={item.id}
-                  name={item.name}
-                  imageUrl={item.ProductImages[0].url}
-                  price={item.price}
-                  rating={item.rating}
-                  sizes={item.Sizes}
-                  types={item.Types}
-                />
+              data={orders}
+              keyExtractor={(order) => order.id}
+              renderItem={({ order }) => (
+                <Order key={order.id} id={order.id} price={order.price} />
               )}
               onEndReachedThreshold={0.5}
               onEndReached={handleEndReached}
               refreshing={isFetching}
               onRefresh={refetch}
             />
-            <Order id="1" price="40" />
+
             <ButtonStyled variant="primary" onPress={handleLogoutPress}>
               Logout
             </ButtonStyled>

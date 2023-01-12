@@ -18,7 +18,7 @@ export const Cart = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [isPaymentVisible, setIsPaymentVisible] = useState(false);
 
-  const [сheckout, { isSuccess, isError, ...result }] = useCheckout();
+  const [сheckout, { isSuccess, isError, error, ...result }] = useCheckout();
 
   const { items } = useCart();
 
@@ -30,10 +30,13 @@ export const Cart = () => {
       SizeId: item.selectedProps.size.id,
     }));
 
+    console.log(shippingData);
     const result = await сheckout({ orderList, shippingData });
 
     if ("error" in result) {
-      Alert.alert("Error!", "Some error happen", [{ text: "OK" }]);
+      Alert.alert("Error!", result.error.data.message || "Some error happen", [
+        { text: "OK" },
+      ]);
     } else {
       setIsOpened(false);
       handleCancelPayment();
