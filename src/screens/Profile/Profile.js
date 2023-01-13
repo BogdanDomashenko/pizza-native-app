@@ -28,7 +28,7 @@ export const Profile = () => {
   const { orders, isLoading, refetch, isFetching } = useFlatOrders(page);
 
   const handleEndReached = ({ distanceFromEnd }) => {
-    if (distanceFromEnd >= 0) {
+    if (distanceFromEnd >= 5) {
       setPage(page + 1);
     }
   };
@@ -37,10 +37,6 @@ export const Profile = () => {
     await removeAccessToken();
     dispatch(resetUser());
   };
-
-  useEffect(() => {
-    console.log("DATA", orders);
-  }, [orders]);
 
   return (
     <Container>
@@ -51,8 +47,13 @@ export const Profile = () => {
             <FlatList
               data={orders}
               keyExtractor={(order) => order.id}
-              renderItem={({ order }) => (
-                <Order key={order.id} id={order.id} price={order.price} />
+              renderItem={({ item: order }) => (
+                <Order
+                  key={order.id}
+                  id={order.id}
+                  totalPrice={order.totalPrice}
+                  products={order.OrderProducts}
+                />
               )}
               onEndReachedThreshold={0.5}
               onEndReached={handleEndReached}

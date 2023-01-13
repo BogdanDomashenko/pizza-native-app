@@ -6,10 +6,10 @@ export const orderApi = createApi({
   baseQuery: fetchWithToken,
   endpoints: (build) => ({
     orderList: build.query({
-      query: (page) => {
-        console.log({ page });
-        return { url: `/order/list-by-user`, params: { page, size: 8 } };
-      },
+      query: ({ page }) => ({
+        url: `/order/list-by-user`,
+        params: { page, size: 8 },
+      }),
     }),
     phantomCheckout: build.mutation({
       query: ({ orderList, shippingData }) => ({

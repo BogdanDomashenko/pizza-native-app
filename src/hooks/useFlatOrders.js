@@ -11,15 +11,10 @@ export const useFlatOrders = (page) => {
   );
 
   useEffect(() => {
-    console.log(data);
-    if (!isFetching && data?.list) {
-      setOrders([...orders, data.list]);
+    if (!isFetching && data?.list.length) {
+      setOrders([...orders, ...data.list]);
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
 
   return { orders, isLoading, refetch, isFetching };
 };

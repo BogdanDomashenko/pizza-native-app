@@ -2,7 +2,7 @@ import { Animated, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { mainTheme } from "../../theme";
-import { useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { LayoutAnimation } from "react-native-web";
 import { toggleAnimation } from "../../animations/toggleAnimation";
 
@@ -26,12 +26,13 @@ const Body = styled.View`
   padding: 10px;
 `;
 
-export const Order = ({ id, price }) => {
+export const Order = memo(({ id, products, totalPrice }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   const animationController = useRef(new Animated.Value(0)).current;
 
-  const toggleBody = () => {
+  console.log(id);
+  const toggleBody = useCallback(() => {
     const config = {
       duration: 300,
       toValue: isOpened ? 0 : 1,
@@ -41,7 +42,7 @@ export const Order = ({ id, price }) => {
     Animated.timing(animationController, config).start();
     LayoutAnimation.configureNext(toggleAnimation);
     setIsOpened(!isOpened);
-  };
+  }, []);
 
   const arrowTransform = animationController.interpolate({
     inputRange: [0, 1],
@@ -52,7 +53,7 @@ export const Order = ({ id, price }) => {
     <TouchableOpacity onPress={toggleBody}>
       <HeaderContainer>
         <TextStyled>Order {id}</TextStyled>
-        <TextStyled>{price}$</TextStyled>
+        <TextStyled>{totalPrice}$</TextStyled>
         <Animated.View style={{ transform: [{ rotateZ: arrowTransform }] }}>
           <MaterialIcons name="keyboard-arrow-right" size={25} />
         </Animated.View>
@@ -64,4 +65,4 @@ export const Order = ({ id, price }) => {
       )}
     </TouchableOpacity>
   );
-};
+});
