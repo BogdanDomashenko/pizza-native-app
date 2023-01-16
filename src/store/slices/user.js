@@ -9,14 +9,14 @@ const initialState = {
     phoneNumber: null,
   },
   shippingData: {
-    email: null,
-    firstName: null,
-    lastName: null,
-    city: null,
-    postCode: null,
-    address: null,
-    phone: null,
-    paymentMethod: null,
+    email: "",
+    firstName: "",
+    lastName: "",
+    city: "",
+    postCode: "",
+    address: "",
+    phone: "",
+    paymentMethod: "",
   },
 };
 

@@ -12,6 +12,7 @@ import { CountButton } from "./CountButton/CountButton";
 
 import { Swipeable, TouchableOpacity } from "react-native-gesture-handler";
 import { mainTheme } from "../../../../theme";
+import { formatProductProperties } from "../../../../utils/helpers/fomatProductProperties";
 
 const Container = styled.View`
   flex-direction: row;
@@ -109,7 +110,12 @@ export const CartItem = ({ id, count, product, selectedProps, price }) => {
         />
         <Info>
           <Typography fontWeight="600">{product.name}</Typography>
-          <Typography fontWeight="300">{`${selectedProps?.size.name}inch  ${selectedProps?.type.name}`}</Typography>
+          <Typography fontWeight="300">
+            {formatProductProperties(
+              selectedProps.size.name,
+              selectedProps.type.name
+            )}
+          </Typography>
         </Info>
         <CountContainer>
           <CountButton onPress={handleDec}>-</CountButton>

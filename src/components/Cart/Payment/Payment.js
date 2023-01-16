@@ -32,13 +32,17 @@ const paymentMethods = [
 const PaymentSchema = yup
   .object()
   .shape({
-    email: yup.string().email().required("required"),
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    city: yup.string().required("required"),
-    postCode: yup.string().required("required"),
-    phone: yup.string().min("8", "Must have at latest 8 digits"),
-    paymentMethod: yup.string().required("required"),
+    email: yup.string().email().required("required").nullable(),
+    firstName: yup.string().required("required").nullable(),
+    lastName: yup.string().required("required").nullable(),
+    city: yup.string().required("required").nullable(),
+    postCode: yup.string().required("required").nullable(),
+    phone: yup
+      .string()
+      .min("8", "Must have at latest 8 digits")
+      .required("required")
+      .nullable(),
+    paymentMethod: yup.string().required("required").nullable(),
   })
   .required();
 

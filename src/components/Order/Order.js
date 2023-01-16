@@ -1,10 +1,16 @@
-import { Animated, Text, TouchableOpacity, View } from "react-native";
+import { Animated, Text } from "react-native";
 import styled from "styled-components/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { mainTheme } from "../../theme";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import { LayoutAnimation } from "react-native-web";
 import { toggleAnimation } from "../../animations/toggleAnimation";
+import { OrderItem } from "./OrderItem/OrderItem";
+import { generateCartId } from "../../utils/helpers/generateCartId";
+
+const Container = styled.TouchableOpacity`
+  margin: 3px 0;
+`;
 
 const HeaderContainer = styled.View`
   flex-direction: row;
@@ -20,7 +26,6 @@ const TextStyled = styled.Text`
 `;
 
 const Body = styled.View`
-  background: ${mainTheme.COLOR_MUTED_LIGHT};
   border-radius: 5px;
   margin-top: 5px;
   padding: 10px;
@@ -31,8 +36,7 @@ export const Order = memo(({ id, products, totalPrice }) => {
 
   const animationController = useRef(new Animated.Value(0)).current;
 
-  console.log(id);
-  const toggleBody = useCallback(() => {
+  const toggleBody = () => {
     const config = {
       duration: 300,
       toValue: isOpened ? 0 : 1,
@@ -42,15 +46,17 @@ export const Order = memo(({ id, products, totalPrice }) => {
     Animated.timing(animationController, config).start();
     LayoutAnimation.configureNext(toggleAnimation);
     setIsOpened(!isOpened);
-  }, []);
+  };
 
   const arrowTransform = animationController.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
   });
 
+  console.log(products);
+
   return (
-    <TouchableOpacity onPress={toggleBody}>
+    <Container onPress={toggleBody}>
       <HeaderContainer>
         <TextStyled>Order {id}</TextStyled>
         <TextStyled>{totalPrice}$</TextStyled>
@@ -60,9 +66,23 @@ export const Order = memo(({ id, products, totalPrice }) => {
       </HeaderContainer>
       {isOpened && (
         <Body>
-          <Text>woqjdqwoidfjwqodjodwqijofwijqo</Text>
+          {products.map((product) => (
+            <OrderItem
+              key={generateCartId(
+                product.Product.id,
+                product.Type.name,
+                product.Size.name
+              )}
+              name={product.Product.name}
+              totalPrice={product.totalPrice}
+              count={product.count}
+              size={product.Size}
+              type={product.Type}
+              images={product.Product.ProductImages}
+            />
+          ))}
         </Body>
       )}
-    </TouchableOpacity>
+    </Container>
   );
 });

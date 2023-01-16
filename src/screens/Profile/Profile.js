@@ -13,9 +13,11 @@ import { useOrderListQuery } from "../../services/Order.service";
 import { resetUser } from "../../store/slices/user";
 import { Button, Container, Typography, Wrapper } from "../../ui";
 
-const ButtonStyled = styled(Button)`
-  margin-top: 10px;
-  margin-left: auto;
+const Header = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 `;
 
 export const Profile = () => {
@@ -43,10 +45,17 @@ export const Profile = () => {
       <Wrapper>
         {user.data?.id ? (
           <View>
-            <Text>Phone: +{user.data.phoneNumber}</Text>
             <FlatList
               data={orders}
               keyExtractor={(order) => order.id}
+              ListHeaderComponent={
+                <Header>
+                  <Text>Phone: +{user.data.phoneNumber}</Text>
+                  <Button variant="primary" onPress={handleLogoutPress}>
+                    Logout
+                  </Button>
+                </Header>
+              }
               renderItem={({ item: order }) => (
                 <Order
                   key={order.id}
@@ -60,10 +69,6 @@ export const Profile = () => {
               refreshing={isFetching}
               onRefresh={refetch}
             />
-
-            <ButtonStyled variant="primary" onPress={handleLogoutPress}>
-              Logout
-            </ButtonStyled>
           </View>
         ) : (
           <Signin />
