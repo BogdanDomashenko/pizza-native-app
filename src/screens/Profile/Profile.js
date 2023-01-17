@@ -30,7 +30,7 @@ export const Profile = () => {
   const { orders, isLoading, refetch, isFetching } = useFlatOrders(page);
 
   const handleEndReached = ({ distanceFromEnd }) => {
-    if (distanceFromEnd >= 5) {
+    if (distanceFromEnd === 0) {
       setPage(page + 1);
     }
   };

@@ -11,6 +11,7 @@ export const useFlatOrders = (page) => {
   );
 
   useEffect(() => {
+    console.log(data, page);
     if (!isFetching && data?.list.length) {
       setOrders([...orders, ...data.list]);
     }

@@ -7,8 +7,6 @@ import { Categories } from "../components/Categories/Categories";
 import { Button, Container } from "../ui";
 
 export const Home = () => {
-  const dispatch = useDispatch();
-
   return (
     <Container>
       <Products />

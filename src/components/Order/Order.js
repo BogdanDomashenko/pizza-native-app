@@ -31,7 +31,7 @@ const Body = styled.View`
   padding: 10px;
 `;
 
-export const Order = memo(({ id, products, totalPrice }) => {
+export const Order = ({ id, products, totalPrice }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   const animationController = useRef(new Animated.Value(0)).current;
@@ -52,8 +52,6 @@ export const Order = memo(({ id, products, totalPrice }) => {
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
   });
-
-  console.log(products);
 
   return (
     <Container onPress={toggleBody}>
@@ -85,4 +83,4 @@ export const Order = memo(({ id, products, totalPrice }) => {
       )}
     </Container>
   );
-});
+};
