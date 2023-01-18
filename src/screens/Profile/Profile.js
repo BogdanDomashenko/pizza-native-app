@@ -17,7 +17,7 @@ const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin: 10px 20px;
 `;
 
 export const Profile = () => {
@@ -42,38 +42,39 @@ export const Profile = () => {
 
   return (
     <Container>
-      <Wrapper>
-        {user.data?.id ? (
-          <View>
-            <FlatList
-              data={orders}
-              keyExtractor={(order) => order.id}
-              ListHeaderComponent={
-                <Header>
-                  <Text>Phone: +{user.data.phoneNumber}</Text>
-                  <Button variant="primary" onPress={handleLogoutPress}>
-                    Logout
-                  </Button>
-                </Header>
-              }
-              renderItem={({ item: order }) => (
-                <Order
-                  key={order.id}
-                  id={order.id}
-                  totalPrice={order.totalPrice}
-                  products={order.OrderProducts}
-                />
-              )}
-              onEndReachedThreshold={0.5}
-              onEndReached={handleEndReached}
-              refreshing={isFetching}
-              onRefresh={refetch}
+      {user.data?.id ? (
+        <FlatList
+          data={orders}
+          keyExtractor={(order) => order.id}
+          ListHeaderComponent={
+            <Header>
+              <Text>Phone: +{user.data.phoneNumber}</Text>
+              <Button variant="primary" onPress={handleLogoutPress}>
+                Logout
+              </Button>
+            </Header>
+          }
+          ListEmptyComponent={
+            <Wrapper>
+              <Typography>You don't have orders yet</Typography>
+            </Wrapper>
+          }
+          renderItem={({ item: order }) => (
+            <Order
+              key={order.id}
+              id={order.id}
+              totalPrice={order.totalPrice}
+              products={order.OrderProducts}
             />
-          </View>
-        ) : (
-          <Signin />
-        )}
-      </Wrapper>
+          )}
+          onEndReachedThreshold={0.5}
+          onEndReached={handleEndReached}
+          refreshing={isFetching}
+          onRefresh={refetch}
+        />
+      ) : (
+        <Signin />
+      )}
     </Container>
   );
 };

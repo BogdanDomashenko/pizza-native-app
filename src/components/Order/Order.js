@@ -9,7 +9,7 @@ import { OrderItem } from "./OrderItem/OrderItem";
 import { generateCartId } from "../../utils/helpers/generateCartId";
 
 const Container = styled.TouchableOpacity`
-  margin: 3px 0;
+  margin: 3px 20px;
 `;
 
 const HeaderContainer = styled.View`

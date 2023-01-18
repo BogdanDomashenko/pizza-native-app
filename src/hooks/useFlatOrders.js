@@ -1,21 +1,35 @@
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useOrderListQuery } from "../services/Order.service";
 
 export const useFlatOrders = (page) => {
   const [orders, setOrders] = useState([]);
+  const isRefetched = useRef();
 
-  const { data, isLoading, refetch, isFetching, ...result } = useOrderListQuery(
-    {
-      page,
-    }
-  );
+  const {
+    data,
+    isLoading,
+    refetch: refetchQuery,
+    isFetching,
+  } = useOrderListQuery({
+    page,
+  });
 
   useEffect(() => {
-    console.log(data, page);
     if (!isFetching && data?.list.length) {
-      setOrders([...orders, ...data.list]);
+      if (isRefetched) {
+        setOrders(data.list);
+        isRefetched.current = false;
+      } else {
+        setOrders([...orders, ...data.list]);
+      }
     }
   }, [data]);
+
+  const refetch = () => {
+    refetchQuery();
+    isRefetched.current = true;
+  };
 
   return { orders, isLoading, refetch, isFetching };
 };

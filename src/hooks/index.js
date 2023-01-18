@@ -5,3 +5,4 @@ export * from "./useAdditionalPrice";
 export * from "./useShiftAnimation";
 export * from "./useCheckout";
 export * from "./useFlatOrders";
+export * from "./useFlatQuery";
