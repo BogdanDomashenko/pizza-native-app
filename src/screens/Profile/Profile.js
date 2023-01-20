@@ -30,10 +30,15 @@ export const Profile = () => {
   const { orders, isLoading, refetch, isFetching } = useFlatOrders(page);
 
   const handleEndReached = ({ distanceFromEnd }) => {
-    if (distanceFromEnd === 0) {
+    console.log(distanceFromEnd);
+    if (distanceFromEnd >= 0) {
       setPage(page + 1);
     }
   };
+
+  useEffect(() => {
+    console.log({ page });
+  }, [page]);
 
   const handleLogoutPress = async () => {
     await removeAccessToken();
@@ -41,40 +46,42 @@ export const Profile = () => {
   };
 
   return (
-    <Container>
+    <>
       {user.data?.id ? (
-        <FlatList
-          data={orders}
-          keyExtractor={(order) => order.id}
-          ListHeaderComponent={
-            <Header>
-              <Text>Phone: +{user.data.phoneNumber}</Text>
-              <Button variant="primary" onPress={handleLogoutPress}>
-                Logout
-              </Button>
-            </Header>
-          }
-          ListEmptyComponent={
-            <Wrapper>
-              <Typography>You don't have orders yet</Typography>
-            </Wrapper>
-          }
-          renderItem={({ item: order }) => (
-            <Order
-              key={order.id}
-              id={order.id}
-              totalPrice={order.totalPrice}
-              products={order.OrderProducts}
-            />
-          )}
-          onEndReachedThreshold={0.5}
-          onEndReached={handleEndReached}
-          refreshing={isFetching}
-          onRefresh={refetch}
-        />
+        <Container variant="full">
+          <FlatList
+            data={orders}
+            keyExtractor={(order) => order.id}
+            ListHeaderComponent={
+              <Header>
+                <Text>Phone: +{user.data.phoneNumber}</Text>
+                <Button variant="primary" onPress={handleLogoutPress}>
+                  Logout
+                </Button>
+              </Header>
+            }
+            ListEmptyComponent={
+              <Wrapper>
+                <Typography>You don't have orders yet</Typography>
+              </Wrapper>
+            }
+            renderItem={({ item: order }) => (
+              <Order
+                key={order.id}
+                id={order.id}
+                totalPrice={order.totalPrice}
+                products={order.OrderProducts}
+              />
+            )}
+            onEndReachedThreshold={0.5}
+            onEndReached={handleEndReached}
+            refreshing={isFetching}
+            onRefresh={refetch}
+          />
+        </Container>
       ) : (
         <Signin />
       )}
-    </Container>
+    </>
   );
 };

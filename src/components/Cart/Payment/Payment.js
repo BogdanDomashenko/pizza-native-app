@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import styled from "styled-components/native";
 import { useCart, useUser } from "../../../hooks";
 import { usePhantomCheckoutMutation } from "../../../services/Order.service";
@@ -28,6 +28,12 @@ const paymentMethods = [
   { key: "1", value: "card" },
   { key: "2", value: "cash" },
 ];
+
+const getPaymentMethodByKey = (key) =>
+  paymentMethods.find((paymentMethod) => paymentMethod.key === key);
+
+const getPaymentMethodByValue = (value) =>
+  paymentMethods.find((paymentMethod) => paymentMethod.value === value);
 
 const PaymentSchema = yup
   .object()
@@ -58,6 +64,12 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
     resolver: yupResolver(PaymentSchema),
   });
 
+  console.log({ method: user.shippingData.paymentMethod });
+
+  const initialPaymentMethod = useRef(
+    getPaymentMethodByValue(user.shippingData.paymentMethod || "card")
+  ).current;
+
   useEffect(() => {
     console.log(errors);
   }, [errors]);
@@ -65,7 +77,7 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
   const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
 
   return isVisible ? (
-    <Container>
+    <View>
       <Wrapper>
         <Title>Payment</Title>
         <FormItem>
@@ -216,11 +228,15 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
               fieldState: { error },
             }) => (
               <Select
-                setSelected={(val) => onChange(val)}
+                setSelected={(value) => {
+                  console.log(value);
+                  return onChange(value);
+                }}
                 onBlur={onBlur}
                 data={paymentMethods}
                 save="value"
                 search={false}
+                defaultOption={initialPaymentMethod}
               />
             )}
             name="paymentMethod"
@@ -235,7 +251,7 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
           </Button>
         </FromBottom>
       </Wrapper>
-    </Container>
+    </View>
   ) : (
     ""
   );

@@ -8,7 +8,7 @@ export const orderApi = createApi({
     orderList: build.query({
       query: ({ page }) => ({
         url: `/order/list-by-user`,
-        params: { page, size: 8 },
+        params: { page, size: 15 },
       }),
     }),
     phantomCheckout: build.mutation({
