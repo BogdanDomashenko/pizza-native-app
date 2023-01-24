@@ -20,10 +20,6 @@ export const Products = () => {
   const [activeCategory, setActiveCategory] = useState(1);
 
   useEffect(() => {
-    console.log(cart);
-  }, [cart]);
-
-  useEffect(() => {
     setPage(0);
   }, [activeCategory]);
 

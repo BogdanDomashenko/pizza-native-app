@@ -23,6 +23,8 @@ const handleVariant = (variant, isPressed) => {
       return {
         border: `1px solid ${mainTheme.COLOR_DARK}`,
       };
+    case "light":
+      return { backgroundColor: mainTheme.COLOR_MUTED_MIDDLE };
     default:
       return { backgroundColor: mainTheme.COLOR_MUTED };
   }

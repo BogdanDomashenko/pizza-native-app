@@ -64,15 +64,9 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
     resolver: yupResolver(PaymentSchema),
   });
 
-  console.log({ method: user.shippingData.paymentMethod });
-
   const initialPaymentMethod = useRef(
     getPaymentMethodByValue(user.shippingData.paymentMethod || "card")
   ).current;
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
 
@@ -228,10 +222,7 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
               fieldState: { error },
             }) => (
               <Select
-                setSelected={(value) => {
-                  console.log(value);
-                  return onChange(value);
-                }}
+                setSelected={onChange(value)}
                 onBlur={onBlur}
                 data={paymentMethods}
                 save="value"

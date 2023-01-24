@@ -9,8 +9,6 @@ export const useShiftAnimation = (endCoef, hidden) => {
     end: endCoef * windowWidth,
   };
 
-  console.log({ animateState });
-
   const value = useRef(
     new Animated.Value(hidden ? animateState.end : animateState.start)
   ).current;

@@ -32,55 +32,53 @@ const Body = styled.View`
 `;
 
 export const Order = ({ id, products, totalPrice }) => {
-  const [isOpened, setIsOpened] = useState(false);
+  // const [isOpened, setIsOpened] = useState(false);
 
-  const animationController = useRef(new Animated.Value(0)).current;
+  // const animationController = useRef(new Animated.Value(0)).current;
 
-  const toggleBody = () => {
-    const config = {
-      duration: 300,
-      toValue: isOpened ? 0 : 1,
-      useNativeDriver: true,
-    };
+  // const toggleBody = () => {
+  //   const config = {
+  //     duration: 300,
+  //     toValue: isOpened ? 0 : 1,
+  //     useNativeDriver: true,
+  //   };
 
-    Animated.timing(animationController, config).start();
-    LayoutAnimation.configureNext(toggleAnimation);
-    setIsOpened(!isOpened);
-  };
+  //   Animated.timing(animationController, config).start();
+  //   LayoutAnimation.configureNext(toggleAnimation);
+  //   setIsOpened(!isOpened);
+  // };
 
-  const arrowTransform = animationController.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "90deg"],
-  });
+  // const arrowTransform = animationController.interpolate({
+  //   inputRange: [0, 1],
+  //   outputRange: ["0deg", "90deg"],
+  // });
 
   return (
-    <Container onPress={toggleBody}>
+    <Container>
       <HeaderContainer>
         <TextStyled>Order {id}</TextStyled>
         <TextStyled>{totalPrice}$</TextStyled>
-        <Animated.View style={{ transform: [{ rotateZ: arrowTransform }] }}>
+        {/* <Animated.View style={{ transform: [{ rotateZ: arrowTransform }] }}>
           <MaterialIcons name="keyboard-arrow-right" size={25} />
-        </Animated.View>
+        </Animated.View> */}
       </HeaderContainer>
-      {isOpened && (
-        <Body>
-          {products.map((product) => (
-            <OrderItem
-              key={generateCartId(
-                product.Product.id,
-                product.Type.name,
-                product.Size.name
-              )}
-              name={product.Product.name}
-              totalPrice={product.totalPrice}
-              count={product.count}
-              size={product.Size}
-              type={product.Type}
-              images={product.Product.ProductImages}
-            />
-          ))}
-        </Body>
-      )}
+      <Body>
+        {products.map((product) => (
+          <OrderItem
+            key={generateCartId(
+              product.Product.id,
+              product.Type.name,
+              product.Size.name
+            )}
+            name={product.Product.name}
+            totalPrice={product.totalPrice}
+            count={product.count}
+            size={product.Size}
+            type={product.Type}
+            images={product.Product.ProductImages}
+          />
+        ))}
+      </Body>
     </Container>
   );
 };

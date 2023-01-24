@@ -27,18 +27,18 @@ export const Profile = () => {
 
   const [page, setPage] = useState(0);
 
-  const { orders, isLoading, refetch, isFetching } = useFlatOrders(page);
+  const { orders, refetch, isFetching } = useFlatOrders(page);
 
   const handleEndReached = ({ distanceFromEnd }) => {
-    console.log(distanceFromEnd);
     if (distanceFromEnd >= 0) {
       setPage(page + 1);
     }
   };
 
-  useEffect(() => {
-    console.log({ page });
-  }, [page]);
+  const handleRefetch = () => {
+    setPage(0);
+    refetch();
+  };
 
   const handleLogoutPress = async () => {
     await removeAccessToken();
@@ -76,7 +76,7 @@ export const Profile = () => {
             onEndReachedThreshold={0.5}
             onEndReached={handleEndReached}
             refreshing={isFetching}
-            onRefresh={refetch}
+            onRefresh={handleRefetch}
           />
         </Container>
       ) : (

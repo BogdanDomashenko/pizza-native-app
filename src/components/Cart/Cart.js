@@ -30,7 +30,6 @@ export const Cart = () => {
       SizeId: item.selectedProps.size.id,
     }));
 
-    console.log(shippingData);
     const result = await сheckout({ orderList, shippingData });
 
     if ("error" in result) {

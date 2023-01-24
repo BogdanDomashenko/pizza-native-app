@@ -1,8 +1,7 @@
+import { useMemo } from "react";
 import { memo, useCallback, useState } from "react";
-import { Image, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
-import { useAdditionalPrice } from "../../hooks/useAdditionalPrice";
 import { addCartItem } from "../../store/slices/cart";
 import { mainTheme } from "../../theme";
 import { Button, SelectBar, Title } from "../../ui";
@@ -39,7 +38,10 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
   const [activeType, setActiveType] = useState(types ? types[0] : "none");
   const [activeSize, setActiveSize] = useState(sizes ? sizes[0] : "none");
 
-  const addationalPrice = useAdditionalPrice(activeSize, activeType);
+  const additionalPrice = useMemo(
+    () => activeSize.price + activeType.price,
+    [activeSize.price, activeType.price]
+  );
 
   const handleAddPress = useCallback(() => {
     dispatch(
@@ -49,7 +51,7 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
         price,
         imageUrl,
         selectedProps: { type: activeType, size: activeSize },
-        addationalPrice,
+        additionalPrice,
       })
     );
   }, [activeSize, activeType]);
@@ -74,7 +76,7 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
         onSelectRow2={setActiveSize}
       />
       <Bottom>
-        <Title>{price + addationalPrice}$</Title>
+        <Title>{price + additionalPrice}$</Title>
         <Button
           background={mainTheme.COLOR_PRIMARY}
           icon="add"
