@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Text, View, FlatList } from "react-native";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Order, Signin } from "../../components";
+import { Auth, Order } from "../../components";
 import { useFlatOrders } from "../../hooks";
 import { useUser } from "../../hooks/useUser";
 import {
@@ -80,7 +80,7 @@ export const Profile = () => {
           />
         </Container>
       ) : (
-        <Signin />
+        <Auth />
       )}
     </>
   );

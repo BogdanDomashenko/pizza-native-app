@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { Modal, View, Text } from "react-native";
+import { Modal, View, Text, KeyboardAvoidingView } from "react-native";
 import styled from "styled-components/native";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { mainTheme } from "../../theme";
+import BottomSheet, {
+  BottomSheetScrollView,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
+import { lightTheme } from "../../theme";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-const Container = styled.View`
+const Container = styled(GestureHandlerRootView)`
   flex: 1;
   ${(props) =>
     props.isOpened
@@ -38,7 +42,7 @@ export const CartSheet = ({ sheetRef, onClose, isOpened, children }) => {
         index={0}
         onClose={onClose}
       >
-        <BottomSheetView>{children}</BottomSheetView>
+        <BottomSheetScrollView>{children}</BottomSheetScrollView>
       </BottomSheet>
     </Container>
   );

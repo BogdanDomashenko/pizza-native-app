@@ -1,7 +1,7 @@
 import { Animated, Text } from "react-native";
 import styled from "styled-components/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { mainTheme } from "../../theme";
+import { lightTheme } from "../../theme";
 import { memo, useRef, useState } from "react";
 import { LayoutAnimation } from "react-native-web";
 import { toggleAnimation } from "../../animations/toggleAnimation";
@@ -16,13 +16,13 @@ const HeaderContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background: ${mainTheme.COLOR_MUTED_LIGHT};
+  background: ${lightTheme.COLOR_MUTED_LIGHT};
   border-radius: 5px;
   padding: 10px;
 `;
 
 const TextStyled = styled.Text`
-  font-size: ${mainTheme.FONT_SIZE_MAIN};
+  font-size: ${lightTheme.FONT_SIZE_MAIN};
 `;
 
 const Body = styled.View`

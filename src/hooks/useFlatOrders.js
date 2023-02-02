@@ -18,9 +18,9 @@ export const useFlatOrders = (page) => {
   useEffect(() => {
     if (!isFetching && data?.list.length) {
       if (isRefetched.current) {
-        setOrders(data.list);
         isRefetched.current = false;
       } else {
+        setOrders(data.list);
         setOrders([...orders, ...data.list]);
       }
     }

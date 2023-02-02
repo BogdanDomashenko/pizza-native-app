@@ -18,7 +18,7 @@ export const Cart = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [isPaymentVisible, setIsPaymentVisible] = useState(false);
 
-  const [сheckout, { isSuccess, isError, error, ...result }] = useCheckout();
+  const [сheckout, { isSuccess, isError, error }] = useCheckout();
 
   const { items } = useCart();
 

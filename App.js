@@ -2,16 +2,17 @@ import store, { persistor } from "./src/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { StatusBar } from "expo-status-bar";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { StyleSheet, Text, View } from "react-native";
+import { Appearance, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Home, Profile } from "./src/screens";
-import { mainTheme } from "./src/theme";
+import { lightTheme, themes } from "./src/theme";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Cart, CartSheet, Products } from "./src/components";
 import { CartButton } from "./src/components/Cart/CartButton";
+import { ThemeProvider } from "styled-components/native";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,8 +34,8 @@ export default function App() {
 
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
-              tabBarActiveTintColor: mainTheme.COLOR_PRIMARY,
-              tabBarInactiveTintColor: mainTheme.COLOR_MUTED,
+              tabBarActiveTintColor: lightTheme.COLOR_PRIMARY,
+              tabBarInactiveTintColor: lightTheme.COLOR_MUTED,
             })}
           >
             <Tab.Screen name="Home" component={Products} />

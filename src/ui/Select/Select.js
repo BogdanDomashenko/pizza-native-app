@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
-import { mainTheme } from "../../theme";
+import { lightTheme } from "../../theme";
 
 export const Select = (props) => (
   <SelectList
@@ -18,19 +18,19 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     paddingLeft: 20,
     paddingRight: 20,
-    borderColor: mainTheme.COLOR_MUTED_MIDDLE,
+    borderColor: lightTheme.COLOR_MUTED_MIDDLE,
   },
   boxFocus: {
-    borderColor: mainTheme.COLOR_PRIMARY,
+    borderColor: lightTheme.COLOR_PRIMARY,
   },
   dropdown: {
     borderRadius: 5,
     borderStyle: "solid",
-    borderColor: mainTheme.COLOR_MUTED_MIDDLE,
-    backgroundColor: mainTheme.COLOR_LIGHT,
+    borderColor: lightTheme.COLOR_MUTED_MIDDLE,
+    backgroundColor: lightTheme.COLOR_LIGHT,
     width: "100%",
   },
   text: {
-    color: mainTheme.COLOR_MUTED_MIDDLE,
+    color: lightTheme.COLOR_MUTED_MIDDLE,
   },
 });

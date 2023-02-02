@@ -1,9 +1,9 @@
 import { Text, View, Pressable } from "react-native";
 import styled from "styled-components";
-import { mainTheme } from "../../theme";
+import { lightTheme } from "../../theme";
 
 const Select = styled.View`
-  background-color: ${mainTheme.COLOR_MUTED_LIGHT};
+  background-color: ${lightTheme.COLOR_MUTED_LIGHT};
   border-radius: 10px;
   padding: 4px;
 `;

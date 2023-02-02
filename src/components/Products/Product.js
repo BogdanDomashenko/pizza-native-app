@@ -3,7 +3,7 @@ import { memo, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
 import { addCartItem } from "../../store/slices/cart";
-import { mainTheme } from "../../theme";
+import { lightTheme } from "../../theme";
 import { Button, SelectBar, Title } from "../../ui";
 
 const ProductView = styled.View`
@@ -28,8 +28,8 @@ const Bottom = styled.View`
 `;
 
 const CountContainer = styled.Text`
-  background-color: ${mainTheme.COLOR_PRIMARY};
-  color: ${mainTheme.COLOR_LIGHT};
+  background-color: ${lightTheme.COLOR_PRIMARY};
+  color: ${lightTheme.COLOR_LIGHT};
 `;
 
 export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
@@ -78,7 +78,7 @@ export const Product = memo(({ id, name, price, imageUrl, types, sizes }) => {
       <Bottom>
         <Title>{price + additionalPrice}$</Title>
         <Button
-          background={mainTheme.COLOR_PRIMARY}
+          background={lightTheme.COLOR_PRIMARY}
           icon="add"
           variant="primary-outlined"
           onPress={handleAddPress}

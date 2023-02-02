@@ -1,4 +1,4 @@
-export const mainTheme = {
+export const lightTheme = {
   COLOR_LIGHT: "#ffff",
   COLOR_MUTED_LIGHT: "#F3F3F3",
   COLOR_MUTED_MIDDLE: "#BDBDBD",
@@ -12,8 +12,9 @@ export const mainTheme = {
   COLOR_DANGER_DARK: "#e03636",
   COLOR_WARNING: "#FFCB44",
   COLOR_WARNING_LIGHT: "#ffdf8c",
-  FONT_SIZE_SMALL: "14px",
-  FONT_SIZE_MAIN: "16px",
-  FONT_SIZE_MIDDLE: "20px",
-  FONT_SIZE_LARGE: "24px",
+  FONT_SIZE_EXTRA_SMALL: 12,
+  FONT_SIZE_SMALL: 14,
+  FONT_SIZE_MAIN: 16,
+  FONT_SIZE_MIDDLE: 20,
+  FONT_SIZE_LARGE: 24,
 };

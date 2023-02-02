@@ -6,13 +6,24 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({ baseUrl: `${baseUrl}/auth` }),
   endpoints: (build) => ({
+    signUp: build.mutation({
+      query: (body) => ({
+        method: "POST",
+        url: "/signup",
+        body,
+      }),
+      transformResponse: (response, meta) => {
+        setAccessToken(meta.response.headers.map.authorization);
+        return response;
+      },
+    }),
     signin: build.mutation({
       query: (body) => ({
         method: "POST",
         url: "/signin",
         body,
       }),
-      transformResponse: (response, meta, error) => {
+      transformResponse: (response, meta) => {
         setAccessToken(meta.response.headers.map.authorization);
         return response;
       },
@@ -20,4 +31,4 @@ export const authApi = createApi({
   }),
 });
 
-export const { useSigninMutation } = authApi;
+export const { useSigninMutation, useSignUpMutation } = authApi;

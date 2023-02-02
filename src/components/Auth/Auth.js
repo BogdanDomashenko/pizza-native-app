@@ -1,4 +1,13 @@
 import { useState } from "react";
+import styled from "styled-components/native";
+import { Container } from "../../ui";
+import { SignIn } from "./SignIn/SignIn";
+import { SignUp } from "./SignUp/SignUp";
+
+const Form = styled.SafeAreaView`
+  height: 100%;
+  justify-content: center;
+`;
 
 const PAGES = {
   signIn: "signIn",
@@ -8,38 +17,21 @@ const PAGES = {
 export const Auth = () => {
   const [page, setPage] = useState(PAGES.signIn);
 
-  const handleSignUpClick = () => {
-    if (page === PAGES.signIn) {
-      return setPage(PAGES.signUp);
-    }
-    if (page === PAGES.signUp) {
-      return handleSignUpClick();
+  const Page = () => {
+    switch (page) {
+      case PAGES.signIn:
+        return <SignIn onSignUpClick={() => setPage(PAGES.signUp)} />;
+      case PAGES.signUp:
+        return <SignUp onSignInClick={() => setPage(PAGES.signIn)} />;
+      default:
+        return null;
     }
   };
 
   return (
     <Container>
       <Form>
-        <ButtonsContainer>
-          <ButtonStyled
-            variant="dark-outlined"
-            onPress={handleSubmit(onSubmit)}
-          >
-            Sign up
-          </ButtonStyled>
-          <ButtonStyled variant="primary" onPress={handleSubmit(onSubmit)}>
-            Sign in
-          </ButtonStyled>
-        </ButtonsContainer>
-        <FormItem>{error && <Text>{error.data?.message}</Text>}</FormItem>
-        <AnimatedLoader
-          visible={isLoading}
-          overlayColor="rgba(255,255,255,0.75)"
-          animationStyle={styles.lottie}
-          speed={1}
-        >
-          <Text>Loading...</Text>
-        </AnimatedLoader>
+        <Page />
       </Form>
     </Container>
   );

@@ -1,6 +1,6 @@
 import PhoneInput from "react-native-phone-input";
 import styled from "styled-components/native";
-import { mainTheme } from "../../theme";
+import { lightTheme } from "../../theme";
 import { Field } from "../Field/Field";
 
 const PhoneContainer = styled.View`
@@ -18,7 +18,7 @@ export const PhoneTextField = ({ error, ...rest }) => {
           <PhoneInput
             {...rest}
             textStyle={{
-              color: error ? mainTheme.COLOR_DANGER : mainTheme.COLOR_DARK,
+              color: error ? lightTheme.COLOR_DANGER : lightTheme.COLOR_DARK,
             }}
           />
         </PhoneContainer>

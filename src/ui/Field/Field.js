@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { useState } from "react";
-import { mainTheme } from "../../theme";
+import { lightTheme } from "../../theme";
 import { Typography } from "../Typography/Typography";
 
 const Container = styled.View`
@@ -23,8 +23,8 @@ const ErrorLabel = styled(Typography)`
 
 export const Field = ({ render, error, width, ...rest }) => {
   const borderColor = error
-    ? mainTheme.COLOR_DANGER
-    : mainTheme.COLOR_MUTED_MIDDLE;
+    ? lightTheme.COLOR_DANGER
+    : lightTheme.COLOR_MUTED_MIDDLE;
 
   return (
     <Container width={width}>
@@ -41,8 +41,8 @@ export const Field = ({ render, error, width, ...rest }) => {
       /> */}
       {error && (
         <ErrorLabel
-          color={mainTheme.COLOR_DANGER}
-          fontSize={mainTheme.FONT_SIZE_SMALL}
+          color={lightTheme.COLOR_DANGER}
+          fontSize={lightTheme.FONT_SIZE_SMALL}
         >
           {error}
         </ErrorLabel>

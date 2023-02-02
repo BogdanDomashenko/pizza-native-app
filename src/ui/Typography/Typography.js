@@ -1,17 +1,29 @@
 import styled from "styled-components/native";
 import { Text } from "react-native";
-import { mainTheme } from "../../theme";
+import { lightTheme } from "../../theme";
 
-export const Title = styled.Text`
+const TitlePrototype = styled.Text`
   font-weight: 700;
-  font-size: ${mainTheme.FONT_SIZE_LARGE};
-  color: ${(props) => props.color || mainTheme.COLOR_DARK};
+  font-size: ${lightTheme.FONT_SIZE_LARGE};
+  color: ${(props) => props.color || lightTheme.COLOR_DARK};
   text-align: ${(props) => (props.center ? "center" : "left")};
 `;
 
-export const Typography = styled.Text`
-  font-size: ${(props) => props.fontSize || mainTheme.FONT_SIZE_MAIN};
+export const Title = ({ children, ...rest }) => (
+  <TitlePrototype {...rest} numberOfLines={1} adjustsFontSizeToFit>
+    {children}
+  </TitlePrototype>
+);
+
+const TypographyPrototype = styled.Text`
+  font-size: ${(props) => props.fontSize || lightTheme.FONT_SIZE_MAIN};
   font-weight: ${(props) => props.fontWeight || 400};
-  color: ${(props) => props.color || mainTheme.COLOR_DARK};
+  color: ${(props) => props.color || lightTheme.COLOR_DARK};
   text-align: ${(props) => (props.center ? "center" : "left")};
 `;
+
+export const Typography = ({ children, ...rest }) => (
+  <TypographyPrototype {...rest} numberOfLines={1} adjustsFontSizeToFit>
+    {children}
+  </TypographyPrototype>
+);

@@ -11,7 +11,7 @@ import { Button, Typography } from "../../../../ui";
 import { CountButton } from "./CountButton/CountButton";
 
 import { Swipeable, TouchableOpacity } from "react-native-gesture-handler";
-import { mainTheme } from "../../../../theme";
+import { lightTheme } from "../../../../theme";
 import { formatProductProperties } from "../../../../utils/helpers/fomatProductProperties";
 
 const Container = styled.View`
@@ -43,7 +43,7 @@ const Info = styled.View`
 `;
 
 const DeleteButton = styled(Animated.View)`
-  background-color: ${mainTheme.COLOR_DANGER};
+  background-color: ${lightTheme.COLOR_DANGER};
   justify-content: center;
   align-items: center;
   height: 90%;
@@ -66,7 +66,7 @@ const renderRightActions = (
     <View>
       <DeleteButton style={[{}, { opacity }]}>
         <TouchableOpacity onPress={onPress}>
-          <Typography color={mainTheme.COLOR_LIGHT} center>
+          <Typography color={lightTheme.COLOR_LIGHT} center>
             Delete
           </Typography>
         </TouchableOpacity>

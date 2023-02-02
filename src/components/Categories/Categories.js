@@ -24,7 +24,7 @@ export const Categories = ({ active, onChange }) => {
 
   return (
     <Wrapper>
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <CategoriesContainer>
           {categories.map((category) => (
             <ButtonStyled

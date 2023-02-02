@@ -31,6 +31,13 @@ const userSlice = createSlice({
         state.data = { id: payload.id, phoneNumber: payload.phoneNumber };
       }
     );
+    builder.addMatcher(
+      authApi.endpoints.signUp.matchFulfilled,
+      (state, { payload }) => {
+        state.role = payload.role;
+        state.data = { id: payload.id, phoneNumber: payload.phoneNumber };
+      }
+    );
   },
   reducers: {
     resetUser: () => initialState,

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Text, View } from "react-native";
+import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import styled from "styled-components/native";
 import { useCart, useUser } from "../../../hooks";
 import { usePhantomCheckoutMutation } from "../../../services/Order.service";
@@ -71,7 +71,11 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
   const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0]);
 
   return isVisible ? (
-    <View>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      keyboardVerticalOffset={10}
+      behavior={"position"}
+    >
       <Wrapper>
         <Title>Payment</Title>
         <FormItem>
@@ -222,7 +226,7 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
               fieldState: { error },
             }) => (
               <Select
-                setSelected={onChange(value)}
+                setSelected={onChange}
                 onBlur={onBlur}
                 data={paymentMethods}
                 save="value"
@@ -242,7 +246,7 @@ export const Payment = ({ onCancel, isVisible, onSubmit }) => {
           </Button>
         </FromBottom>
       </Wrapper>
-    </View>
+    </KeyboardAvoidingView>
   ) : (
     ""
   );
